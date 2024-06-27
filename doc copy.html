@@ -27,7 +27,7 @@
 
     <h1>maksim</h1>
 
-    <h3>maksim</h3>
+    <h3 id="element3">maksim</h3>
 
     <input type="button" value="нажми" id="trigger">
     <input type="button" value="Отправить">
@@ -406,9 +406,6 @@
 
     }
 
-
-    console.log(findMax(arr2));
-
     // Условие: Напишите функцию promisifyWithMultipleCallbacks, которая принимает функцию с двумя колбэками (успех и ошибка) и возвращает промисифицированную версию этой функции.
 
     function promisifyWithtipleCallbacks(func) {
@@ -430,8 +427,8 @@
     let promisifiedFunction = promisifyWithtipleCallbacks(callbackFunction);
 
 
-    promisifiedFunction(2, 5).then(result => console.log(result));
-    promisifiedFunction(-1, 6).then(error => console.error(error));
+    // promisifiedFunction(2, 5).then(result => console.log(result));
+    // promisifiedFunction(-1, 6).then(error => console.error(error));
 
     // Условие: Напишите функцию createDelayedProxy, которая создает прокси для объекта, добавляющий задержку при чтении свойств.
 
@@ -447,8 +444,8 @@
 
     let user2 = { name: 'Alice', age: 30 };
 
-    let proxy = createDelayesProxy(user2, 1000);
-    proxy.name.then(name => console.log(name));
+    // let proxy = createDelayesProxy(user2, 1000);
+    // proxy.name.then(name => console.log(name));
 
     // Условие: Напишите функцию addAsyncClickHandler(elem, handler), которая добавляет асинхронный обработчик события клика на элемент.
 
@@ -543,7 +540,6 @@
     let object1 = { 1: "rrtt" };
     let object2 = { trt: 33 };
 
-    console.log(mergeObjects(object1, object2));
 
     // Условие: Напишите функцию uniqueValues, которая принимает массив и возвращает множество уникальных значений.
 
@@ -553,7 +549,6 @@
 
     let array = [1, 1, 2, 2, 3, 3]
 
-    console.log(uniqueValue(array));
 
     // 80 Условие: Напишите функцию createObject, которая принимает массив ключей и массив значений и возвращает объект, где каждому ключу соответствует значение.
 
@@ -572,7 +567,6 @@
     let keys = [1, 2, 3, 4];
     let values = ["a", "b", "c", "d"];
 
-    console.log(createObject(keys, values));
 
     // Условие: Напишите функцию handleMultiplePromises, которая принимает массив промисов и возвращает промис, разрешающийся массивом значений.
 
@@ -586,6 +580,109 @@
 
 
     // handleMultiolePromises([p1, p2, p3]).then(result => console.log(result));
+
+    // Условие: Напишите функцию promisifyMultipleCallbacks, которая принимает функцию с двумя колбэками (успех и ошибка) и возвращает промисифицированную версию этой функции.
+
+    function promisifytipleCallbacks(func) {
+      return function (...args) {
+        return new Promise((resolve, reject) => {
+          func(...args, resolve, reject);
+        });
+      }
+    }
+
+    function callbackFunction(a, b, onSuccess, onError) {
+      if (a < 0 || b < 0) {
+        onError('Negative numbers not allowed');
+      } else {
+        setTimeout(() => onSuccess(a + b), 1000);
+      }
+    }
+
+    let promisifyCallback = promisifytipleCallbacks(callbackFunction);
+
+    // Условие: Напишите функцию createAccessRestrictedProxy, которая создает прокси для объекта, ограничивающий доступ к определенным свойствам.
+
+    function createAccessRestrictedProxy(target, nameKey) {
+      return new Proxy(target, {
+        get(target, prop) {
+          if (prop.startsWith(nameKey)) {
+            throw new Error("this is a secret value");
+            return undefined;
+          } else {
+            return target[prop];
+          }
+        }
+      });
+    }
+
+    let objMaria = {
+      name: "Maria",
+      _password: "kfj56QWEh"
+    }
+
+    let proxyMaria = createAccessRestrictedProxy(objMaria, "_")
+
+    // Условие: Напишите функцию addAsyncEventHandler, которая добавляет асинхронный обработчик события клика на элемент.
+
+    function addAsyncEventHandler(elem, handler) {
+      elem.addEventListener("click", async (event) => {
+        await handler(event);
+      });
+    }
+
+    let element3 = document.getElementById("element3")
+
+    addAsyncEventHandler(element3, async (event) => {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log("click");
+    });
+
+    // Условие: Напишите функцию createLoggingProxy, которая создает прокси для объекта, записывающий логи при доступе к свойствам.
+
+    function createLoggingProxy(target) {
+      return new Proxy(target, {
+        get(target, prop) {
+          console.log(`${prop} is reading`);
+          return target[prop];
+        },
+        set(target, prop, value) {
+          console.log(`${prop} is creating. Now it's ${value}`);
+          target[prop] = value;
+          return true;
+        }
+      });
+    }
+
+    let objMaria2 = {
+      name: "Maria",
+      age: 30,
+      _password: "kfj56QWEh",
+    }
+
+    let proxyMaria2 = createLoggingProxy(objMaria2);
+
+    proxyMaria2["age"];
+    proxyMaria2["age"] = 31;
+
+    // Условие: Напишите генератор randomInRangeGenerator, который генерирует случайные числа в заданном диапазоне.
+
+    function* randomRangeGenerator(min, max) {
+      while(true) {
+        yield Math.trunc(Math.random() * (max - min + 1)) + min;
+      }
+    }
+
+    let genRandomRange = randomRangeGenerator(1, 100);
+    
+
+    // console.log(genRandomRange.next().value);
+
+    
+
+
+
+
 
   </script>
 </body>
