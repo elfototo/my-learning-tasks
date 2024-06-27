@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch API Demo</title>
+</head>
+
+<body style="margin:0">
+  <div class="contains" id="elem" text="text">
+
+    еще текстовый узел
+
+    <div class="text" id="text">maksim</div>
+    <a href="liza">link</a>
+
+    Текстовый узел
+    <!-- А вот комментарий -->
+
+    <ol class="text" text="notext">
+      <li>1</li>
+      <li>maksim</li>
+      <li id="textListLi" data-any="anyanyany">text text</li>
+      <li class="text" text="text">maksim</li>
+    </ol>
+
+    <h1>maksim</h1>
+
+    <h3>maksim</h3>
+
+    <input type="button" value="нажми" id="trigger">
+    <input type="button" value="Отправить">
+
+
+
+  </div>
+
+
+  <script>
+
+    let element = document.getElementById('elem');
+    let element2 = document.getElementById('textListLi')
+
+    // функция по обходу всех потомков:
+
+    function traverse(node, callback) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        callback(node);
+      }
+
+      node.childNodes.forEach(child => traverse(child, callback));
+    };
+
+    function getAllTextContent(element) {
+      let textContent = '';
+
+      traverse(element, (node) => {
+        textContent += node.nodeValue;
+      })
+
+      return textContent;
+    }
+
+
+    // Условие: Напишите функцию getElementSize(elem), которая возвращает размеры элемента в виде объекта {width, height}.
+
+    function getElementSize(elem) {
+      return {
+        width: elem.offsetWidth,
+        heigth: elem.offsetHeight
+      }
+    }
+
+    // Условие: Напишите функцию scrollToBottom(), которая прокручивает страницу до конца.
+
+    function scrollBottom() {
+      let height = Math.max(
+        document.body.scrollHeight, document.body.offsetHeight,
+        document.body.clientHeight, document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight, document.documentElement.clientHeight
+      )
+      console.log({
+        bodyScrollHeight: document.body.scrollHeight,
+        bodyOffsetHeight: document.body.offsetHeight,
+        bodyClientHeight: document.body.clientHeight,
+        docElemScrollHeight: document.documentElement.scrollHeight,
+        docElemOffsetHeight: document.documentElement.offsetHeight,
+        docElemClientHeight: document.documentElement.clientHeight
+      })
+
+      window.scrollTo({
+        top: height,
+        left: 0,
+        behavior: "smooth"
+      })
+    }
+
+    // Условие: Напишите генератор stringGenerator(str), который генерирует символы строки по одному.
+
+    function* stringGenerator(str) {
+      for (let i = 0; i < str.length; i++) {
+        yield str[i];
+      }
+    }
+
+    // Условие: Напишите рекурсивную функцию factorial(n), которая вычисляет факториал числа n.
+
+    function factorial(n) {
+      return n <= 1 ? n : n * (factorial(n - 1))
+    }
+
+
+    // Условие: Напишите функцию delayedPromiseChain, которая последовательно выполняет три промиса с задержкой в 1 секунду и возвращает их результат.
+
+    function delayedPromiseChain() {
+
+      return Promise.resolve(1)
+        .then(result => {
+          console.log(result);
+          return new Promise(resolve => setTimeout(() => resolve(result + 1), 1000))
+        })
+        .then(result => {
+          console.log(result);
+          return new Promise(resolve => setTimeout(() => resolve(result + 1), 1000))
+        })
+        .then(result => {
+          console.log(result);
+        })
+    }
+
+    // Условие: Напишите функцию promisifyWithErrors, которая принимает функцию callback и возвращает промисифицированную версию этой функции с обработкой ошибок.
+
+    function promisifyWithErrors(func) {
+
+      return function (...args) {
+        return new Promise((resolve, reject) => {
+          func(...args, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          });
+        });
+      };
+    }
+
+    // Условие: Напишите функцию sayGoodbye.call(user, farewell), где user - объект с полем name, которая выводит сообщение "[farewell], [name]!".
+
+    let user = {
+      name: "Maks"
+    }
+
+    function sayGoodbye(str) {
+      console.log(`${str}, ${this.name}`)
+    }
+
+    sayGoodbye.call(user, "goodbay");
+
+    // Условие: Напишите функцию calculateSum.apply(null, numbers), где numbers - массив чисел, которая возвращает их сумму.
+
+    let numbers = [2, 3, 5, 9];
+
+    function calculateSum(numbers) {
+
+      let sum = numbers.reduce((sum, item) => sum = sum + item, 0);
+      console.log(sum);
+    }
+
+    // calculateSum.apply(null, [numbers]);
+
+    // Условие: Напишите декоратор memoize, который кэширует результаты вызовов функции.
+
+    function memoize(func) {
+      let cache = new Map();
+
+      return function (...args) {
+
+        let key = JSON.stringify(args);
+
+        if (cache.has(key)) {
+          console.log(`from cache`)
+          return cache.get(key);
+        } else {
+          let result = func.apply(this, args);
+          cache.set(key, result);
+          console.log(`saved in cache`)
+          return result;
+        }
+      }
+    }
+
+    function sum(a, b) {
+      return a + b;
+    }
+
+
+    // Условие: Напишите рекурсивную функцию deepSum, которая находит сумму всех чисел в объекте, включая вложенные объекты.
+
+    function deepSum(obj) {
+      let sum = 0;
+      for (let key in obj) {
+        if (typeof obj[key] == "object") {
+          sum += deepSum(obj[key]);
+        } else if (typeof obj[key] == "number") {
+          sum += obj[key];
+        }
+      }
+      return sum;
+    }
+
+    // Условие: Напишите функцию promiseDelays, которая создает и выполняет три промиса с разными задержками и возвращает их результат.
+
+    function promiseDelays() {
+      return Promise.resolve(1)
+        .then(result => {
+          console.log(result);
+          return new Promise(resolve => setTimeout(() => resolve(result + 1), 1000));
+        })
+        .then(result => {
+          console.log(result);
+          return new Promise(resolve => setTimeout(() => resolve(result + 1), 3000));
+        })
+        .then(result => {
+          console.log(result);
+          return new Promise(resolve => setTimeout(() => resolve(result + 1), 2000));
+        })
+    }
+
+    // Условие: Напишите функцию promisifyWithDelays, которая принимает функцию callback и возвращает промисифицированную версию этой функции с отложенными результатами.
+
+    function promisifyWithDelays(func) {
+      return function (...args) {
+        return new Promise((resolve, reject) => {
+          func(...args, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              setTimeout(() => resolve(result), 1000);
+            }
+          })
+        });
+      }
+    }
+
+    // Условие: Напишите функцию addDblClickHandler(elem, handler), которая добавляет обработчик события двойного клика на элемент.
+
+    function addDblClickHandler(elem, handler) {
+      elem.addEventListener("dbclick", handler)
+    }
+
+
+    //Задача 55 Условие: Напишите асинхронный генератор asyncObjectGenerator(obj, delay), который генерирует пары ключ-значение объекта с заданной задержкой.
+
+    async function* asyncObjectGenerator(obj, delay) {
+      for (let [key, value] of Object.entries(obj)) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+        yield [key, value];
+      }
+    }
+
+
+    (async () => {
+      let gen = asyncObjectGenerator({ dfdf: "ggg", lkjfld: "ttt" }, 1000);
+
+      for await (let entries of gen) {
+        console.log(entries);
+      }
+    });
+
+    // Условие: Напишите декоратор logArguments, который логирует аргументы вызова функции.
+
+    function logArguments(func) {
+      return function (...args) {
+        console.log(`${func.name} have arguments: ${JSON.stringify(args)}`)
+        return func.apply(this, args);
+      }
+    }
+
+    function sum(a, b) {
+      return a + b;
+    };
+
+    let decoratorSum = logArguments(sum);
+
+    //  Условие: Напишите рекурсивную функцию deepClone, которая создает глубокую копию объекта.
+
+    function deepClone(obj) {
+      let copyObj = {};
+
+      for (let key in obj) {
+
+        if (typeof obj[key] === "object") {
+
+          if (Array.isArray(obj[key]) || obj[key] == null) {
+            copyObj[key] = obj[key];
+          } else {
+            copyObj[key] = deepClone(obj[key]);
+          }
+        } else {
+          copyObj[key] = obj[key];
+        }
+      }
+      return copyObj;
+    }
+
+    let obj1 = {
+      name: "Maks",
+      age: 28,
+      "favorite food": {
+        drinks: ["tea", "beer", "ice-latte", "matcha"],
+        foods: ["pureshka", "friese spring roll", "fish"],
+      },
+      "favorite sport": null,
+      girlfriend: "Liza",
+    };
+
+    // Условие: Напишите функцию changeElementStyle, которая изменяет стиль переданного элемента, устанавливая цвет фона и цвет текста.
+
+    function changeElementStyle(elem, color, background) {
+      elem.style.color = color;
+      elem.style.backgroundColor = background;
+    }
+
+    changeElementStyle(element2, "red", "blue");
+
+    // Условие: Напишите функцию scrollToEnd, которая прокручивает элемент до самого конца.
+
+    function scrollToEnd(elem) {
+      elem.scrolltop = elem.scrollHeight;
+    }
+
+    // Условие: Напишите функцию getWindowDimensions, которая возвращает размеры окна браузера.
+
+    function getWindowDimensions() {
+      return {
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight,
+      }
+    }
+
+
+    // Условие: Напишите генератор randomNumberGenerator(min, max), который генерирует случайные числа в заданном диапазоне.
+
+    function* randomNumberGenetrator(min, max) {
+      while (true) {
+        yield Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    };
+
+    let gen1 = randomNumberGenetrator(7, 10);
+
+    // Условие: Напишите асинхронный генератор asyncRandomNumberGenerator(min, max, delay), который генерирует случайные числа с заданной задержкой.
+
+    async function* asyncRandomNumberGenerator(min, max, delay) {
+      while (true) {
+
+        await new Promise(resolve => setTimeout(resolve, delay));
+        let random = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        yield random;
+      }
+    }
+
+    (async () => {
+      let asgen = asyncRandomNumberGenerator(2, 100, 1000);
+
+      let result = await asgen.next();
+      console.log(result.value);
+
+      result = await asgen.next();
+      console.log(result.value);
+
+      result = await asgen.next();
+      console.log(result.value);
+
+    });
+
+    // Условие: Напишите декоратор measureTime, который измеряет время выполнения функции.
+
+    function measureTime(func) {
+      return function (...args) {
+        let start = new Date();
+        console.log(`${func.name} is starting`);
+        let result = func.apply(this, args);
+        let end = new Date();
+
+        console.log(`${end - start} ms`);
+
+        return result;
+      }
+    }
+
+    // Условие: Напишите рекурсивную функцию findMax, которая находит максимальное число в массиве.
+
+    let arr2 = [1, 50, 6000, 3, 5]
+
+    function findMax(arr) {
+      if (arr.length === 1) {
+        return arr[0];
+      } else {
+        let submax = findMax(arr.slice(1));
+        return arr[0] > submax ? arr[0] : submax;
+      }
+
+    }
+
+
+    console.log(findMax(arr2));
+
+    // Условие: Напишите функцию promisifyWithMultipleCallbacks, которая принимает функцию с двумя колбэками (успех и ошибка) и возвращает промисифицированную версию этой функции.
+
+    function promisifyWithtipleCallbacks(func) {
+      return function (...args) {
+        return new Promise((resolve, reject) => {
+          func(...args, resolve, reject)
+        });
+      };
+    }
+
+    function callbackFunction(a, b, onSuccess, onError) {
+      if (a < 0 || b < 0) {
+        onError('Negative numbers not allowed');
+      } else {
+        setTimeout(() => onSuccess(a + b), 1000);
+      }
+    }
+
+    let promisifiedFunction = promisifyWithtipleCallbacks(callbackFunction);
+
+
+    promisifiedFunction(2, 5).then(result => console.log(result));
+    promisifiedFunction(-1, 6).then(error => console.error(error));
+
+    // Условие: Напишите функцию createDelayedProxy, которая создает прокси для объекта, добавляющий задержку при чтении свойств.
+
+    function createDelayesProxy(target, delay) {
+      return new Proxy(target, {
+        get(target, prop) {
+          return new Promise(resolve => {
+            setTimeout(() => resolve(target[prop]), delay)
+          });
+        }
+      });
+    }
+
+    let user2 = { name: 'Alice', age: 30 };
+
+    let proxy = createDelayesProxy(user2, 1000);
+    proxy.name.then(name => console.log(name));
+
+    // Условие: Напишите функцию addAsyncClickHandler(elem, handler), которая добавляет асинхронный обработчик события клика на элемент.
+
+    function addAsyncClickHandler(elem, handler) {
+      elem.addEventListener("click", async (event) => {
+        await handler(event);
+      })
+    }
+
+    addAsyncClickHandler(element2, async (event) => {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("clicked");
+    })
+
+    // Условие: Напишите генератор fibonacciGenerator, который генерирует числа Фибоначчи.
+
+    function* fibinacciGenerator() {
+      let a = 0;
+      let b = 1;
+
+      while (true) {
+        yield a;
+        [a, b] = [b, a + b]
+      }
+    }
+
+    let gen2 = fibinacciGenerator();
+
+    // Условие: Напишите асинхронный генератор asyncFibonacciGenerator, который генерирует числа Фибоначчи с задержкой.
+
+    async function* asyncFibonacciGenerator(delay) {
+      let a = 0;
+      let b = 1;
+
+      while (true) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+        yield a;
+        [a, b] = [b, a + b];
+      }
+    }
+
+    (async () => {
+      let gen3 = asyncFibonacciGenerator(1000);
+
+      let result = await gen3.next();
+      console.log(result.value);
+
+      result = await gen3.next();
+      console.log(result.value);
+
+      result = await gen3.next();
+      console.log(result.value);
+
+      result = await gen3.next();
+      console.log(result.value);
+
+      result = await gen3.next();
+      console.log(result.value);
+    });
+
+
+    // Условие: Напишите функцию createNumberOnlyProxy, которая создает прокси для объекта, разрешающий запись только чисел.
+
+    function createNumberOnlyProxy(target) {
+      return new Proxy(target, {
+        set(target, prop, value) {
+          if (typeof value === "number") {
+            target[prop] = value;
+            console.log(`${value} is validation`)
+            return true;
+          } else {
+            throw new Error(`${value} is't validation`);
+            return false;
+          }
+        }
+      });
+    }
+
+    let obj3 = {};
+    let proxy3 = createNumberOnlyProxy(obj3);
+
+
+    proxy3.name = 5;
+
+    // Условие: Напишите функцию mergeObjects, которая сливает несколько объектов в один.
+
+    function mergeObjects(...objects) {
+
+      return Object.assign({}, ...objects);
+    }
+
+    let object1 = { 1: "rrtt" };
+    let object2 = { trt: 33 };
+
+    console.log(mergeObjects(object1, object2));
+
+    // Условие: Напишите функцию uniqueValues, которая принимает массив и возвращает множество уникальных значений.
+
+    function uniqueValue(arr) {
+      return new Set(arr)
+    }
+
+    let array = [1, 1, 2, 2, 3, 3]
+
+    console.log(uniqueValue(array));
+
+    // 80 Условие: Напишите функцию createObject, которая принимает массив ключей и массив значений и возвращает объект, где каждому ключу соответствует значение.
+
+    function createObject(keys, values) {
+      let obj = {};
+
+      let minLength = Math.min(keys.length, values.length)
+
+      for (let i = 0; i < minLength; i++) {
+        obj[keys[i]] = values[i];
+      }
+
+      return obj;
+    }
+
+    let keys = [1, 2, 3, 4];
+    let values = ["a", "b", "c", "d"];
+
+    console.log(createObject(keys, values));
+
+    // Условие: Напишите функцию handleMultiplePromises, которая принимает массив промисов и возвращает промис, разрешающийся массивом значений.
+
+    function handleMultiolePromises(arrPromises) {
+      return Promise.all(arrPromises)
+    }
+
+    let p1 = Promise.resolve(1);
+    let p2 = Promise.resolve(2);
+    let p3 = Promise.resolve(3);
+
+
+    // handleMultiolePromises([p1, p2, p3]).then(result => console.log(result));
+
+  </script>
+</body>
+
+</html>
