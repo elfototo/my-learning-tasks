@@ -800,10 +800,58 @@
       }
     }
 
-    let promisifiedFunction2 = promisifyWithMultipleDelays(callbackFunction, 1000, 2000);
 
-    promisifiedFunction2(5, 100).then(result => console.log(result));
-    promisifiedFunction2(-10, 80).catch(console.error);
+    // 99 Условие: Напишите асинхронный генератор asyncNumberGenerator, который генерирует числа от 1 до N с задержкой.
+
+    async function* asyncNumberGenerator(max, delay) {
+      while (true) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+        yield Math.trunc(Math.random() * max) + 1;
+      }
+    }
+
+    (async () => {
+      let gen = asyncNumberGenerator(10, 2000);
+
+      for (let i = 0; i < 5; i++) {
+        let result = await gen.next();
+        console.log(result.value);
+      }
+    });
+
+    //100  Условие: Напишите функцию createDeleteRestrictedProxy, которая создает прокси для объекта, ограничивающий удаление определенных свойств.
+
+    function createDeleteRestrectedProxy(target, restrectedProps) {
+      return new Proxy(target, {
+        get(target, prop) {
+          
+        },
+        deleteProperty(target, prop) {
+          if (restrectedProps.includes(prop)) {
+            throw new Error("Это стойство нельз удалить");
+            return false;
+          } else {
+            delete target[prop];
+            return true;
+          }
+        }
+      });
+    }
+
+    let userLiza = {
+      name: "Liza",
+      age: 28,
+      _password: "kjgo$34DD"
+    }
+
+    let restrectedProperties = ["_password", "name"];
+
+    let proxyRestrDelete = createDeleteRestrectedProxy(userLiza, restrectedProperties);
+
+    console.log(delete proxyRestrDelete["age"]);
+
+
+
 
 
 
