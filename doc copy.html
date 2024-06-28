@@ -851,6 +851,30 @@
     console.log(delete proxyRestrDelete["age"]);
 
 
+    //101 Условие: Напишите функцию getChildrenList, которая принимает элемент DOM и возвращает массив его детей.
+
+    function getChildrenList(elem) {
+      let children = Array.from(elem.childNodes);
+
+      return children;
+    }
+
+    console.dir(getChildrenList(element));
+
+    //102 Условие: Напишите функцию findElementsBySelector, которая принимает CSS селектор и возвращает массив найденных элементов.
+
+    function findElementsBySelector(cssSelector) {
+
+      return Array.from(document.querySelectorAll(cssSelector))
+    };
+
+    console.dir(findElementsBySelector(".text"));
+
+    // 103 Условие: Напишите функцию getElementCoordinates, которая принимает элемент DOM и возвращает его координаты относительно документа.
+
+
+
+
 
 
 
