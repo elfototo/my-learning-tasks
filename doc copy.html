@@ -654,34 +654,104 @@
       });
     }
 
+    // Условие: Напишите генератор randomInRangeGenerator, который генерирует случайные числа в заданном диапазоне.
+
+    function* randomRangeGenerator(min, max) {
+      while (true) {
+        yield Math.trunc(Math.random() * (max - min + 1)) + min;
+      }
+    }
+
+    let genRandomRange = randomRangeGenerator(1, 100);
+
+
+    // console.log(genRandomRange.next().value);
+
+    // Условие: Напишите асинхронный генератор asyncRangeGenerator, который генерирует числа с заданной задержкой.
+
+    async function* asyncRangeGenerator(min, max, delay) {
+
+      while (true) {
+        await new Promise(resolve => setTimeout(resolve, delay))
+        yield Math.trunc(Math.random() * (max - min + 1)) + min;
+      }
+    }
+
+    (async () => {
+      let gen = asyncRangeGenerator(1, 100, 2000);
+
+      let result = await gen.next();
+      console.log(result.value);
+    });
+
+    // Условие: Напишите декоратор timeControlDecorator, который ограничивает время выполнения функции.
+
+    function timeControlDecorator(func, ms) {
+      return function (...args) {
+
+        let timer = setTimeout(() => {
+          throw new Error("time is finished"), 1000
+        });
+
+        let result = func.apply(this, args);
+
+        clearTimeout(timer);
+
+        return result;
+      }
+    }
+
+    function longarr(min, max) {
+      let sum = [];
+      for (let i = min; i <= max; i++) {
+        sum.unshift(i);
+      }
+
+      return sum;
+    }
+
+    let decoratorLongArr = timeControlDecorator(longarr, 1);
+
+    // Условие: Напишите функцию createLimitedAccessProxy, которая создает прокси для объекта, ограничивающий доступ к свойствам на запись.
+
+    function createLimitedAccessProxy(target, restrictedProps) {
+      return new Proxy(target, {
+        set(target, prop, value) {
+          if (restrictedProps.includes(prop)) {
+            throw new Error("ошибка");
+            return false;
+          } else {
+            target[prop] = value;
+            return true;
+          }
+        }
+      });
+    }
+
     let objMaria2 = {
       name: "Maria",
       age: 30,
       _password: "kfj56QWEh",
     }
 
-    let proxyMaria2 = createLoggingProxy(objMaria2);
+    let proxyfyObj = createLimitedAccessProxy(objMaria2, ["name"]);
 
-    proxyMaria2["age"];
-    proxyMaria2["age"] = 31;
+    // Условие: Напишите функцию promisifyWithDelay, которая принимает функцию с одним колбэком и возвращает промисифицированную версию этой функции с заданной задержкой.
 
-    // Условие: Напишите генератор randomInRangeGenerator, который генерирует случайные числа в заданном диапазоне.
-
-    function* randomRangeGenerator(min, max) {
-      while(true) {
-        yield Math.trunc(Math.random() * (max - min + 1)) + min;
+    function promisifyWithDelay(func, delay) {
+      return function (...args) {
+        return new Promise(resolve => {
+          setTimeout(() => func(...args, resolve), delay)
+        });
       }
     }
 
-    let genRandomRange = randomRangeGenerator(1, 100);
-    
+    function funcWithCallba(a, b, callback) {
+      callback(a + b);
+    }
 
-    // console.log(genRandomRange.next().value);
-
-    
-
-
-
+    let ass = promisifyWithDelay(funcWithCallba, 2000);
+    console.log(ass(4, 5).then(result => console.log(result)));
 
 
   </script>
