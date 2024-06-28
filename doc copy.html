@@ -824,7 +824,7 @@
     function createDeleteRestrectedProxy(target, restrectedProps) {
       return new Proxy(target, {
         get(target, prop) {
-          
+
         },
         deleteProperty(target, prop) {
           if (restrectedProps.includes(prop)) {
@@ -883,7 +883,66 @@
       }
     }
 
-    
+    //105 Условие: Напишите функцию createPropertyAccessProxy, которая создает прокси для объекта, регистрирующий доступ к его свойствам.
+
+    function createPropertyAcceesProxy(target) {
+      return new Proxy(target, {
+        get(target, prop) {
+          console.log(`Accessed property ${prop}`)
+          return target[prop];
+        },
+        set(target, prop, value) {
+          console.log(`Chenged propperty ${prop} - ${value}`)
+          target[prop] = value;
+          return true;
+        }
+      });
+    }
+
+    let user3 = {
+      name: "Maria",
+      age: 28,
+      _password: "lgkhl98G"
+    }
+
+    let user3Proxy = createPropertyAcceesProxy(user3);
+
+    // 106 Условие: Напишите функцию getUserName, которая принимает объект пользователя и возвращает его имя, используя деструктуризацию с переименованием.
+
+    function getUserName(obj) {
+      let { name: userNAme } = obj;
+      return userNAme;
+    }
+
+    //107 Условие: Напишите асинхронный генератор fetchDataGenerator, который запрашивает данные из API с задержкой между запросами.
+
+    async function* fetchDataGenerator(urls, delay) {
+
+      for (let url of urls) {
+        await new Promise(resolve => setTimeout(resolve, delay))
+
+        let response = await fetch(url);
+        let data = await response.json();
+
+        yield data;
+      }
+    }
+
+    (async () => {
+
+      let urls = ['https://api.example.com/data1', 'https://api.example.com/data2'];
+      let gen = fetchDataGenerator(urls, 2000);
+
+      for await(let data of gen) {
+        console.log(data);
+      }
+    });
+
+    //108 Условие: Напишите функцию addClassToElement, которая добавляет заданный класс к элементу.
+
+
+
+
 
 
 
