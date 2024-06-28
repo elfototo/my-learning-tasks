@@ -872,9 +872,18 @@
 
     // 103 Условие: Напишите функцию getElementCoordinates, которая принимает элемент DOM и возвращает его координаты относительно документа.
 
+    function getElementCoordinates(elem) {
+      let cords = elem.getBoundingClientRect();
 
+      return {
+        top: cords.top + window.pageXOffset,
+        right: cords.right + window.pageXOffset,
+        bottom: cords.bottom + window.pageXOffset,
+        left: cords.left + window.pageXOffset,
+      }
+    }
 
-
+    
 
 
 
