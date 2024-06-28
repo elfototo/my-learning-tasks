@@ -416,14 +416,6 @@
       };
     }
 
-    function callbackFunction(a, b, onSuccess, onError) {
-      if (a < 0 || b < 0) {
-        onError('Negative numbers not allowed');
-      } else {
-        setTimeout(() => onSuccess(a + b), 1000);
-      }
-    }
-
     let promisifiedFunction = promisifyWithtipleCallbacks(callbackFunction);
 
 
@@ -591,13 +583,6 @@
       }
     }
 
-    function callbackFunction(a, b, onSuccess, onError) {
-      if (a < 0 || b < 0) {
-        onError('Negative numbers not allowed');
-      } else {
-        setTimeout(() => onSuccess(a + b), 1000);
-      }
-    }
 
     let promisifyCallback = promisifytipleCallbacks(callbackFunction);
 
@@ -768,10 +753,10 @@
 
     // Условие: Напишите функцию createWriteRestrictedProxy, которая создает прокси для объекта, разрешающий запись только для определенных свойств.
 
-    function createWriteRestrectedProxy(target, unrestrictedProp) {
+    function createWriteRestrectedProxy(target, writableProps) {
       return new Proxy(target, {
         set(target, prop, value) {
-          if (unrestrictedProp.includes(prop)) {
+          if (writableProps.includes(prop)) {
             target[prop] = value;
             return true;
           } else {
@@ -793,7 +778,32 @@
     // console.log(proxyUserAnt["name"] = "fly");
     // console.log(proxyUserAnt["_password"] = "111");
 
-    
+
+    // 97 Условие: Напишите функцию promisifyWithMultipleDelays, которая принимает функцию с двумя колбэками и возвращает промисифицированную версию этой функции с задержками.
+
+    function promisifyWithMultipleDelays(func, successDelay, errorDelay) {
+      return function (...args) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            func(...args, resolve, reject)
+          }, args[0] < 0 ? errorDelay : successDelay);
+        });
+      };
+    }
+
+
+    function callbackFunction(a, b, onSuccess, onError) {
+      if (a < 0 || b < 0) {
+        onError('Negative numbers not allowed');
+      } else {
+        onSuccess(a + b);
+      }
+    }
+
+    let promisifiedFunction2 = promisifyWithMultipleDelays(callbackFunction, 1000, 2000);
+
+    promisifiedFunction2(5, 100).then(result => console.log(result));
+    promisifiedFunction2(-10, 80).catch(console.error);
 
 
 
