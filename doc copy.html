@@ -751,7 +751,50 @@
     }
 
     let ass = promisifyWithDelay(funcWithCallba, 2000);
-    console.log(ass(4, 5).then(result => console.log(result)));
+    // console.log(ass(4, 5).then(result => console.log(result)));
+
+    // Условие: Напишите рекурсивную функцию multiplyArray, которая перемножает все элементы массива.
+
+    function multiplyArray(arr) {
+      let multy;
+      if (arr.length == 0) {
+        return 1;
+      } else {
+        multy = arr[0] * multiplyArray(arr.slice(1));
+      }
+
+      return multy;
+    }
+
+    // Условие: Напишите функцию createWriteRestrictedProxy, которая создает прокси для объекта, разрешающий запись только для определенных свойств.
+
+    function createWriteRestrectedProxy(target, unrestrictedProp) {
+      return new Proxy(target, {
+        set(target, prop, value) {
+          if (unrestrictedProp.includes(prop)) {
+            target[prop] = value;
+            return true;
+          } else {
+            throw new Error("Это свойство перезаписать нельзя")
+            return false;
+          }
+        }
+      });
+    }
+
+    let userAnt = {
+      name: "Ant",
+      _password: "kgjfQWE!#@",
+      age: 5
+    }
+
+    let proxyUserAnt = createWriteRestrectedProxy(userAnt, ["name", "age"]);
+
+    // console.log(proxyUserAnt["name"] = "fly");
+    // console.log(proxyUserAnt["_password"] = "111");
+
+    
+
 
 
   </script>
