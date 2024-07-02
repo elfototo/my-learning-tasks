@@ -960,7 +960,7 @@ function setupContainerClickHandler() {
   }
 }
 
-//104 Напишите функцию, которая добавляет обработчик события на элемент с ID "menu", который будет логировать текст элемента списка (li), по которому кликнули, только если у него нет атрибута "data-no-log".
+//115 Напишите функцию, которая добавляет обработчик события на элемент с ID "menu", который будет логировать текст элемента списка (li), по которому кликнули, только если у него нет атрибута "data-no-log".
 
 function seturMenuClickHandler() {
   let menu = document.getElementById("menu");
@@ -970,6 +970,20 @@ function seturMenuClickHandler() {
       if (event.target.tagName === "LI" && !event.target.hasAttribute("data-no-log")) {
         console.log(event.target.textContent);
       }
-    })
+    });
+  }
+}
+
+//116 Напишите функцию, которая отменяет действие по умолчанию для ссылок (тегов <a>), находящихся внутри элемента с ID "links".
+
+function preventDefaultForLinks() {
+  let links = document.getElementById("links");
+
+  if (links) {
+    links.addEventListener("click", (event) => {
+      if (event.target.tagName === "A") {
+        event.preventDefault();
+      }
+    });
   }
 }
