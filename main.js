@@ -285,15 +285,6 @@ let element = document.getElementById('elem');
     }
 
 
-    // Условие: Напишите генератор randomNumberGenerator(min, max), который генерирует случайные числа в заданном диапазоне.
-
-    function* randomNumberGenetrator(min, max) {
-      while (true) {
-        yield Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-    };
-
-    let gen1 = randomNumberGenetrator(7, 10);
 
     // Условие: Напишите асинхронный генератор asyncRandomNumberGenerator(min, max, delay), который генерирует случайные числа с заданной задержкой.
 
