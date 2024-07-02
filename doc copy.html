@@ -933,15 +933,69 @@
       let urls = ['https://api.example.com/data1', 'https://api.example.com/data2'];
       let gen = fetchDataGenerator(urls, 2000);
 
-      for await(let data of gen) {
+      for await (let data of gen) {
         console.log(data);
       }
     });
 
     //108 Условие: Напишите функцию addClassToElement, которая добавляет заданный класс к элементу.
 
+    function addClassToElement(elem, classNAme) {
+      elem.classList.add(classNAme);
+    }
+
+    addClassToElement(element, "test");
+
+    //109 Условие: Напишите функцию createTypeCheckProxy, которая создает прокси для объекта, проверяющий тип записываемого значения.
+
+    function createTypeCheckProxy(target) {
+      return new Proxy(target, {
+        set(target, prop, value) {
+          console.log(typeof value);
+          target[prop] = value;
+          return true;
+        }
+      });
+    };
+
+    //110 Условие: Напишите декоратор trackExecutionTime, который отслеживает время выполнения функции.
 
 
+    function trackExecitionTime(func) {
+      return function (...args) {
+        let start = new Date();
+        let result = func.apply(this, args);
+        let end = new Date();
+
+        return `${func.name} finished by ${end - start} ms`;
+      }
+    }
+
+    //111 Условие: Напишите функцию getAllAttributes, которая возвращает все атрибуты элемента в виде объекта.
+
+    function getAllAttributes(elem) {
+      let attributes = elem.attributes;
+
+      let attrs = {};
+      for (let attr of attributes) {
+        attrs[attr.name] = attr.value;
+      }
+
+      return attrs;
+    }
+
+    console.log(getAllAttributes(element2))
+
+    // 112 Напишите функцию, которая добавляет обработчик события на элемент с ID "parent", который будет логировать сообщение "Clicked on a child" при клике на любой элемент внутри "parent".
+
+    function seturClickHandler() {
+      let parent = document.getElementById("parent");
+      if (parent) {
+        parent.addEventListener("click", (event) => {
+          console.log("clicked on a child")
+        })
+      }
+    }
 
 
 
