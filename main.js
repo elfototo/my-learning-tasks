@@ -937,7 +937,7 @@ function setupListClickHandler() {
 
   if (list) {
     list.addEventListener("click", (event) => {
-      if (event.target.target === "LI") {
+      if (event.target.tagName === "LI") {
         event.target.style.backgroundColor = "red";
       }
     });
@@ -955,6 +955,20 @@ function setupContainerClickHandler() {
         console.log("Edit item");
       } else if (event.target.classList.contains("delete")) {
         console.log("Delete item");
+      }
+    });
+  }
+}
+
+//104 Напишите функцию, которая добавляет обработчик события на элемент с ID "menu", который будет логировать текст элемента списка (li), по которому кликнули, только если у него нет атрибута "data-no-log".
+
+function seturMenuClickHandler() {
+  let menu = document.getElementById("menu");
+
+  if (menu) {
+    menu.addEventListener("click", (event) => {
+      if (event.target.tagName === "LI" && !event.target.hasAttribute("data-no-log")) {
+        console.log(event.target.textContent);
       }
     })
   }
