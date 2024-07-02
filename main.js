@@ -228,21 +228,6 @@ let element = document.getElementById('elem');
       }
     });
 
-    // Условие: Напишите декоратор logArguments, который логирует аргументы вызова функции.
-
-    function logArguments(func) {
-      return function (...args) {
-        console.log(`${func.name} have arguments: ${JSON.stringify(args)}`)
-        return func.apply(this, args);
-      }
-    }
-
-    function sum(a, b) {
-      return a + b;
-    };
-
-    let decoratorSum = logArguments(sum);
-
     //  Условие: Напишите рекурсивную функцию deepClone, которая создает глубокую копию объекта.
 
     function deepClone(obj) {
