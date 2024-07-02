@@ -710,8 +710,6 @@ let element = document.getElementById('elem');
 
     let proxyUserAnt = createWriteRestrectedProxy(userAnt, ["name", "age"]);
 
-    // console.log(proxyUserAnt["name"] = "fly");
-    // console.log(proxyUserAnt["_password"] = "111");
 
 
     // 97 Условие: Напишите функцию promisifyWithMultipleDelays, которая принимает функцию с двумя колбэками и возвращает промисифицированную версию этой функции с задержками.
