@@ -943,3 +943,19 @@ function setupListClickHandler() {
     });
   }
 }
+
+//114 Напишите функцию, которая добавляет обработчик события на элемент с ID "container", который будет выполнять разные действия в зависимости от класса кликнутого элемента. Например, если кликнули на элемент с классом "edit", нужно вывести сообщение "Edit item", а если с классом "delete" — "Delete item".
+
+function setupContainerClickHandler() {
+  let container = document.getElementById("container");
+
+  if (container) {
+    container.addEventListener("click", (event) => {
+      if (event.target.classList.contains("edit")) {
+        console.log("Edit item");
+      } else if (event.target.classList.contains("delete")) {
+        console.log("Delete item");
+      }
+    })
+  }
+}
