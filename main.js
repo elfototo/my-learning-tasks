@@ -1041,3 +1041,28 @@ function dispatchDataLoaded(data) {
     element.dispatchEvent(event);
   }
 }
+
+//122 Напишите функцию, которая создает и инициирует (dispatch) событие "userAction" на элементе с ID "userElement" и вызывает слушатель этого события, который будет логировать детали события в консоль.
+
+function dispatchUserAction(data) {
+  let element = document.getElementById("userElement");
+
+  if (element) {
+    let event = new CustomEvent("userAction", { detail: data });
+
+    element.dispatchEvent(event);
+  }
+}
+
+function setupUserActionEventListener() {
+  let element = document.getElementById("userElement");
+
+  if (element) {
+    element.addEventListener("userAction", (event) => {
+      console.log("User action: ", event.detail);
+    });
+  }
+}
+
+setupUserActionEventListener();
+dispatchUserAction({ type: "click", timestamp: Date.now() });
