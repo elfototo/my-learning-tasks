@@ -1007,3 +1007,13 @@ function preventPinchZoom() {
   });
 }
 
+//119 Напишите функцию, которая предотвращает перетаскивание изображений внутри элемента с ID "gallery".
+
+function preventImageDrag() {
+  let gallery = document.getElementById("gallery");
+  gallery.addEventListener("dragstart", (event) => {
+    if (event.target.tagName === "IMG") {
+      event.preventDefault();
+    }
+  })
+}
