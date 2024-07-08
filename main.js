@@ -1066,3 +1066,22 @@ function setupUserActionEventListener() {
 
 setupUserActionEventListener();
 dispatchUserAction({ type: "click", timestamp: Date.now() });
+
+//123 Напишите функцию, которая создает и инициирует (dispatch) событие "asyncTaskCompleted" на элементе с ID "taskElement" после выполнения асинхронной операции, передавая результат операции в качестве detail.
+
+async function dispatchAsyncTakComleted() {
+
+  let element = document.getElementById("taskElement");
+
+  if (element) {
+    let result = await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Task completed")
+      }, 2000);
+    });
+
+    let event = new CustomEvent("asyncTaskCompleted", { detail: result });
+    element.dispatchEvent(event);
+  }
+}
+
