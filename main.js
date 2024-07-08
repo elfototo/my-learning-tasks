@@ -1030,3 +1030,14 @@ function dispatchCustopEvent() {
   }
 }
 
+//121 Напишите функцию, которая создает и инициирует (dispatch) событие "dataLoaded" на элементе с ID "dataContainer", передавая при этом объект данных в качестве detail.
+
+function dispatchDataLoaded(data) {
+  let element = document.getElementById("dataContainer");
+
+  if (element) {
+    let event = new CustomEvent("dataLoaded", { detail: data });
+
+    element.dispatchEvent(event);
+  }
+}
