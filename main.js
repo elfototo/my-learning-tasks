@@ -987,3 +987,17 @@ function preventDefaultForLinks() {
     });
   }
 }
+
+//117 Напишите функцию, которая предотвращает отправку формы с ID "form" и выводит сообщение "Form submission prevented" вместо этого.
+
+function preventFormSubmission() {
+  let form = document.getElementById("form");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault(0);
+    console.log("Form submission prevented");
+  });
+}
+
+// Напишите функцию, которая предотвращает масштабирование страницы при использовании жеста "pinch" (сведение/разведение пальцев) на сенсорных устройствах.
+
