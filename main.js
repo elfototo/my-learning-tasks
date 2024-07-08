@@ -1017,3 +1017,16 @@ function preventImageDrag() {
     }
   })
 }
+
+//120 Напишите функцию, которая создает и инициирует (dispatch) событие "customEvent" на элементе с ID "myElement".
+
+function dispatchCustopEvent() {
+  let element = document.getElementById("myElement");
+
+  if (element) {
+    let event = new Event("customEvent");
+
+    element.dispatchEvent(event);
+  }
+}
+
