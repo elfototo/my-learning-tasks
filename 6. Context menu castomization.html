@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Menu Castomization</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Display a custom context menu on right-click.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a div element.</li>
+            <li>Use the contextmenu event to display a custom context menu.</li>
+        </ul>
+    </div>
+
+    <div id="context-div" style="width: 200px; height: 200px; background-color: lightcoral;">Right-click for menu!</div>
+    <div id="custom-menu"
+        style="display: none; position: absolute; background: white; border: 1px solid black; padding: 10px;">
+        Custom Menu
+    </div>
+
+    <script>
+
+        let contextDiv = document.getElementById("context-div");
+        let customMenu = document.getElementById("custom-menu");
+
+        contextDiv.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+
+            customMenu.style.display = "block";
+            customMenu.style.top = `${event.clientX}px`;
+            customMenu.style.left = `${event.clientY}px`;
+
+        });
+        document.addEventListener("click", (event) => {
+            customMenu.style.display = "none";
+        });
+
+    </script>
+</body>
+
+</html>
