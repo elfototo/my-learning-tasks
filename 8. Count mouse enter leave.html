@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Mouse Enter Leaves</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Count the number of times the mouse enters and leaves a div.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a div element.</li>
+            <li>Use the mouseenter and mouseleave events to count and display the number of times the mouse enters and
+                leaves the div.
+            </li>
+        </ul>
+    </div>
+
+    <div id="count-div" style="width: 200px; height: 200px; background-color: lightgreen;">Mouse enters: 0, Mouse
+        leaves: 0</div>
+
+    <script>
+        let countDiv = document.getElementById("count-div");
+        let countEnter = 0;
+        let countLeaves = 0;
+
+        countDiv.addEventListener("mouseenter", (event) => {
+            countEnter++;
+            countDiv.innerHTML = `Mouse enters: ${countEnter}, Mouse leaves: ${countLeaves}`
+        });
+        countDiv.addEventListener("mouseleave", (event) => {
+            countLeaves++;
+            countDiv.innerHTML = `Mouse enters: ${countEnter}, Mouse leaves: ${countLeaves}`
+        });
+
+
+    </script>
+</body>
+
+</html>
