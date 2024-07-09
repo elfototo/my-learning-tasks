@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag To Drow</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Draw on a canvas by dragging the mouse.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a canvas element.</li>
+            <li>Use the mousedown, mousemove, and mouseup events to draw on the canvas.
+            </li>
+        </ul>
+    </div>
+
+    <canvas id="draw-canvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+
+    <script>
+        let canvas = document.getElementById("draw-canvas");
+        let ctx = canvas.getContext("2d");
+        let drawing = false;
+
+        canvas.addEventListener("mouseover", () => drawing = true);
+        canvas.addEventListener("mouseout", () => drawing = false);
+        canvas.addEventListener("mousemove", (event) => {
+            if (drawing) {
+                ctx.lineTo(event.offsetX, event.offsetY);
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(event.offsetX, event.offsetY);
+            }
+        });
+    </script>
+</body>
+
+</html>
