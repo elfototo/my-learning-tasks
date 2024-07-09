@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show tooltip On Hover</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Show a tooltip when hovering over a button.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a button element.</li>
+            <li>Use the mouseover and mouseout events to show and hide a tooltip.</li>
+        </ul>
+    </div>
+
+    <button id="tooltip-btn">Hover over me!</button>
+    <div id="tooltip"
+        style="display: none; position: absolute; background: black; color: white; padding: 5px; border-radius: 5px;">
+        Tooltip text</div>
+
+    <script>
+        let tooltipBtn = document.getElementById("tooltip-btn");
+        let tooltip = document.getElementById("tooltip");
+
+        tooltipBtn.addEventListener("mouseover", (event) => {
+            tooltip.style.display = "block";
+            tooltip.style.top = `${event.clientY + 10}px`;
+            tooltip.style.left = `${event.clientX + 10}px`;
+
+        });
+        tooltipBtn.addEventListener("mouseout", (event) => {
+            tooltip.style.display = "none";
+        });
+
+
+    </script>
+
+</body>
+
+</html>
