@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change text-color</title>
+</head>
+
+<body>
+
+    <style>
+        .text-paragraph {
+            margin-top: 50px;
+            border-style: solid;
+            border-radius: 15px;
+            border-color: lightgrey;
+            padding: 20px;
+            background-color: lightskyblue;
+            width: 250px;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+
+    <div>
+        <b>Objective</b>: Change the text color of a paragraph when it is clicked.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a paragraph element</li>
+            <li>Use the click event to change the text color.</li>
+        </ul>
+    </div>
+
+    <p class="text-paragraph" id="text-paragraph">Click me to change my color!</p>
+
+    <script>
+
+        let textParagraph = document.getElementById("text-paragraph");
+        textParagraph.addEventListener("click", (event) => {
+            textParagraph.style.color = textParagraph.style.color === "black" ? "white" : "black";
+        })
+
+    </script>
+
+</body>
+
+</html>
