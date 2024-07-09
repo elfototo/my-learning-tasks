@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse coords</title>
+</head>
+
+<body>
+
+    <div>
+        <b>Objective</b>: Display the mouse coordinates inside a div when the mouse moves over it.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a div element.</li>
+            <li>Use the mousemove event to display the mouse coordinates inside the div.</li>
+        </ul>
+    </div>
+
+
+    <div id="coord-div" style="width: 200px; height: 200px; background-color: lightgray;">Move the mouse here!</div>
+
+
+    <script>
+        let elementDiv = document.getElementById("coord-div");
+
+        elementDiv.addEventListener("mousemove", (event) => {
+            let cords = event.target.getBoundingClientRect();
+
+            let div = document.createElement("div");
+            div.className = "coords";
+
+            let divs = document.body.children;
+            for (let div of divs) {
+                if (div.classList.contains("coords")) {
+                    div.remove();
+                }
+            }
+
+            div.innerHTML = `Element's coords: ${JSON.stringify(cords)}, Mouse"s cords: ${event.clientX} : ${event.clientY}`;
+            document.body.append(div);
+        })
+    </script>
+</body>
+
+</html>
