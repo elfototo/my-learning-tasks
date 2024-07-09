@@ -9,6 +9,16 @@
 </head>
 
 <body>
+    <style>
+        .coords {
+            margin-top: 20px;
+            border-style: solid;
+            border-color: lightgray;
+            border-radius: 10px;
+            padding: 5px;
+
+        }
+    </style>
 
     <div>
         <b>Objective</b>: Display the mouse coordinates inside a div when the mouse moves over it.
@@ -44,6 +54,16 @@
             div.innerHTML = `Element's coords: ${JSON.stringify(cords)}, Mouse"s cords: ${event.clientX} : ${event.clientY}`;
             document.body.append(div);
         })
+
+        elementDiv.addEventListener("mouseout", (event) => {
+            let divs = document.body.children;
+            for (let div of divs) {
+                if (div.classList.contains("coords")) {
+                    div.remove();
+                }
+            }
+        })
+
     </script>
 </body>
 
