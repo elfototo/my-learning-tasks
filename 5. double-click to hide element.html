@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double-Click to Hide Element</title>
+</head>
+
+<body>
+
+
+    <div>
+        <b>Objective</b>: Hide a div when it is double-clicked.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a div element.</li>
+            <li>Use the dblclick event to hide the div.</li>
+        </ul>
+    </div>
+
+    <div class="hide-div" id="hide-div" style="width: 200px; height: 200px; background-color: coral;">Double-click to
+        hide me!</div>
+
+    <script>
+        let hideDiv = document.getElementById("hide-div");
+
+        hideDiv.addEventListener("dblclick", (event) => {
+
+            hideDiv.style.display = "none";
+        })
+    </script>
+
+</body>
+
+</html>

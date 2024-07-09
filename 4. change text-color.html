@@ -19,7 +19,6 @@
             padding: 20px;
             background-color: lightskyblue;
             width: 250px;
-            color: black;
             cursor: pointer;
         }
     </style>
@@ -40,8 +39,9 @@
     <script>
 
         let textParagraph = document.getElementById("text-paragraph");
+        textParagraph.style.color = "black"
         textParagraph.addEventListener("click", (event) => {
-            textParagraph.style.color = textParagraph.style.color === "black" ? "white" : "black";
+            textParagraph.style.color = textParagraph.style.color === "white" ? "black" : "white";
         })
 
     </script>
