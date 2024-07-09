@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlight div On Mouse Over</title>
+</head>
+
+<body>
+    <style>
+        .highlight-element {
+            color: blue;
+        }
+    </style>
+
+    <div>
+        <b>Objective</b>: Highlight a div when the mouse is over it.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create multiple div elements.</li>
+            <li>Use the mouseover and mouseout events to highlight and unhighlight the div.</li>
+        </ul>
+    </div>
+
+    <div class="highlight-div" style="width: 100px; height: 100px; background-color: yellow; margin: 10px;">1</div>
+    <div class="highlight-div" style="width: 100px; height: 100px; background-color: yellow; margin: 10px;">2</div>
+
+    <script>
+
+        document.addEventListener("mouseover", (event) => {
+            if (event.target.classList.contains("highlight-div")) {
+                event.target.style.backgroundColor = "blue";
+            }
+        });
+        document.addEventListener("mouseout", (event) => {
+            if (event.target.classList.contains("highlight-div")) {
+                event.target.style.backgroundColor = "yellow";
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
