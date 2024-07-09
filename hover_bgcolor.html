@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change background-color</title>
+</head>
+
+<body>
+    <div id="hover-div" style="width: 200px; height: 200px; background-color: lightblue;">Hover over me!</div>
+
+
+    <script>
+        let element = document.getElementById("hover-div");
+
+        element.addEventListener("mouseover", (event) => {
+            element.style.backgroundColor = "pink";
+        });
+        element.addEventListener("mouseout", (event) => {
+            element.style.backgroundColor = "lightblue";
+        })
+
+
+    </script>
+</body>
+
+</html>
