@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Drag and Drop</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Drag and drop a div within a container.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a draggable div inside a container div.</li>
+            <li>Use the dragstart, drag, and dragend events to move the div.</li>
+        </ul>
+    </div>
+
+    <div id="container" style="width: 400px; height: 400px; position: relative; background-color: lightgray;">
+        <div id="draggable" draggable="true"
+            style="width: 50px; height: 50px; background-color: red; position: absolute; cursor: move;"></div>
+    </div>
+
+    <script>
+        const draggable = document.getElementById("draggable");
+        let offsetX;
+        let offsetY;
+
+        draggable.addEventListener("dragstart", (event) => {
+            offsetX = event.offsetX;
+            offsetY = event.offsetY;
+        });
+
+        document.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
+
+        document.addEventListener("drop", (event) => {
+            event.preventDefault();
+            const container = document.getElementById("container");
+            const cords = container.getBoundingClientRect();
+            draggable.style.left = `${event.clientX - cords.left - offsetX}px`;
+            draggable.style.top = `${event.clientY - cords.top - offsetY}px`;
+        })
+    </script>
+
+</body>
+
+</html>
