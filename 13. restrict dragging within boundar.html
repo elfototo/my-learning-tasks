@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restrict Dragging Within Boundaries</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Restrict the draggable div to stay within the container boundaries.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Modify the previous example to ensure the draggable div doesn't go outside the container.</li>
+        </ul>
+    </div>
+
+    <div id="container" style="width: 500px; height: 500px; position: relative; background-color: lightgreen;">
+        <h1 style="margin-left: 200px; padding-top: 50px;">DISCO</h1>
+        <img src="/img/Слой 1.png" id="draggable" draggable="true"
+            style="width: 100px; height: 200px; position: absolute; cursor: move;"></img>
+    </div>
+
+    <script>
+        const draggable = document.getElementById("draggable");
+        const container = document.getElementById("container");
+        let offsetX;
+        let offsetY;
+
+        draggable.addEventListener("dragstart", (event) => {
+
+            offsetX = event.offsetX;
+            offsetY = event.offsetY;
+        });
+
+        document.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
+
+
+        document.addEventListener("drop", (event) => {
+            event.preventDefault();
+
+            const rect = container.getBoundingClientRect();
+            let left = event.clientX - rect.left - offsetX;
+            let top = event.clientY - rect.top - offsetY;
+
+            // Restrict movement within boundaries
+            if (left < 0) left = 0;
+            if (top < 0) top = 0;
+            if (left + draggable.offsetWidth > container.offsetWidth) left = container.offsetWidth - draggable.offsetWidth;
+            if (top + draggable.offsetHeight > container.offsetHeight) top = container.offsetHeight - draggable.offsetHeight;
+
+            draggable.style.left = `${left}px`;
+            draggable.style.top = `${top}px`;
+        })
+
+        document.addEventListener("mousemove", (event) => {
+            const red = Math.round((event.clientX / container.offsetWidth) * 255);
+            const blue = Math.round((event.clientY / container.offsetHeight) * 255);
+
+            container.style.backgroundColor = `rgb(${red}, 150, ${blue})`
+        })
+
+    </script>
+
+</body>
+
+</html>
