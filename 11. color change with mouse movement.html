@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color change with mouse movement</title>
+</head>
+
+<body style="margin: 0; height: 100vh;">
+    <div>
+        <b>Objective</b>: Change the background color of the page based on mouse movement.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Use the mousemove event to change the background color dynamically.</li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener("mousemove", (event) => {
+            const red = Math.round((event.clientX / window.innerWidth) * 255);
+            const blue = Math.round((event.clientY / window.innerHeight) * 255);
+
+            document.body.style.backgroundColor = `rgb(${red}, 100, ${blue})`
+        })
+    </script>
+</body>
+
+</html>
