@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy Loading IMG</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Implement lazy loading for images to improve page performance.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create multiple image elements with a data-src attribute.</li>
+            <li>Load the image source when the image comes into the viewport.</li>
+        </ul>
+    </div>
+
+    <div style="height: 2000px; background-color: lightgray;">
+        <img class="lazy" data-src="path/to/image1.jpg" alt="Image 1"
+            style="margin-top: 500px; width: 80px;">
+        <img class="lazy" data-src="path/to/image2.jpg" alt="Image 2"
+            style="margin-top: 500px; width: 80px;">
+        <!-- Add more lazy-loaded images if needed -->
+    </div>
+
+    <script>
+        const lazyImages = document.querySelectorAll(".lazy");
+
+        const lazyLoad = () => {
+            lazyImages.forEach(img => {
+                if (img.getBoundingClientRect().top < window.innerHeight && img.getBoundingClientRect().bottom > 0 && !img.src) {
+                    img.src = img.dataset.src;
+                }
+            });
+        };
+
+        window.addEventListener("scroll", lazyLoad);
+        window.addEventListener("resize", lazyLoad);
+        window.addEventListener("orientationchange", lazyLoad);
+    </script>
+
+</body>
+
+</html>
