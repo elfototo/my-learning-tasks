@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show and Hide Button on scroll</title>
+</head>
+
+<body>
+    <div>
+        <b>Objective</b>: Show a "Back to Top" button when the user scrolls down and hide it when the user scrolls up.
+    </div>
+    <div>
+        <b>Instructions</b>:
+        <ul>
+            <li>Create a "Back to Top" button.</li>
+            <li>Show/hide the button based on the scroll position.</li>
+        </ul>
+    </div>
+
+    <button id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px;">Back to Top</button>
+    <div style="height: 2000px; background-color: lightgray;">Scroll down</div>
+
+    <script>
+        const backToTopButton = document.getElementById("back-to-top");
+        window.addEventListener("scroll", () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        })
+    </script>
+
+</body>
+
+</html>
