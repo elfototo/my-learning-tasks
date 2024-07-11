@@ -9,21 +9,27 @@
 </head>
 
 <body>
-    <div>
-        <b>Objective</b>: Show a tooltip when hovering over a button.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create a button element.</li>
-            <li>Use the mouseover and mouseout events to show and hide a tooltip.</li>
-        </ul>
+    <div class="task"
+        style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+
+        <div>
+            <b>Objective</b>: Show a tooltip when hovering over a button.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create a button element.</li>
+                <li>Use the mouseover and mouseout events to show and hide a tooltip.</li>
+            </ul>
+        </div>
     </div>
 
-    <button id="tooltip-btn">Hover over me!</button>
-    <div id="tooltip"
-        style="display: none; position: absolute; background: black; color: white; padding: 5px; border-radius: 5px;">
-        Tooltip text</div>
+    <div class="wrap" style="display: flex; justify-content: center;">
+        <button id="tooltip-btn">Hover over me!</button>
+        <div id="tooltip"
+            style="display: none; position: absolute; background: black; color: white; padding: 5px; border-radius: 5px;">
+            Tooltip text</div>
+    </div>
 
     <script>
         let tooltipBtn = document.getElementById("tooltip-btn");

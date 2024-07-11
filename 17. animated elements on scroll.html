@@ -22,22 +22,28 @@
         }
     </style>
 
-    <div>
-        <b>Objective</b>: Animate elements when they enter the viewport during scrolling.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create multiple elements with hidden content.</li>
-            <li>Apply a CSS animation when they enter the viewport.</li>
-        </ul>
+    <div class="task"
+        style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+
+        <div>
+            <b>Objective</b>: Animate elements when they enter the viewport during scrolling.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create multiple elements with hidden content.</li>
+                <li>Apply a CSS animation when they enter the viewport.</li>
+            </ul>
+        </div>
     </div>
 
-    <div class="hidden" style="height: 100px; background-color: coral; margin-top: 800px;">Content 1</div>
-    <img class="hidden" src="img/koala_3069172.png" alt="" style="height: 100px; margin-top: 400px;">
+    <div class="hidden" style="height: 100px; background-color: coral; margin-top: 400px;">Content 1</div>
+    <div class="hidden" style="height: 100px; margin-top: 400px; display: flex; justify-content: center;">
+        <img src="img/koala_3069172.png" alt="" style="height: 100px;">
+    </div>
     <div class="hidden" style="height: 100px; background-color: coral; margin-top: 400px;">Content 2</div>
     <!-- Add more hidden elements if needed -->
-    <div style="height: 2000px; background-color: lightgray;"></div>
+    <div style="height: 2000px; background-color: white;"></div>
 
     <script>
         const hiddenElements = document.querySelectorAll(".hidden");

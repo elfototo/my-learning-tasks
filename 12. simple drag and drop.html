@@ -9,21 +9,25 @@
 </head>
 
 <body>
-    <div>
-        <b>Objective</b>: Drag and drop a div within a container.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create a draggable div inside a container div.</li>
-            <li>Use the dragstart, drag, and dragend events to move the div.</li>
-        </ul>
+    <div class="task" style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+
+        <div>
+            <b>Objective</b>: Drag and drop a div within a container.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create a draggable div inside a container div.</li>
+                <li>Use the dragstart, drag, and dragend events to move the div.</li>
+            </ul>
+        </div>
     </div>
 
-    <div id="container" style="width: 400px; height: 400px; position: relative; background-color: lightgray;">
+    <div id="container" style="margin: 0 auto; width: 400px; height: 400px; position: relative; background-color: lightgray;">
         <div id="draggable" draggable="true"
             style="width: 50px; height: 50px; background-color: red; position: absolute; cursor: move;"></div>
     </div>
+
 
     <script>
         const draggable = document.getElementById("draggable");

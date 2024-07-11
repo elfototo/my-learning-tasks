@@ -9,22 +9,26 @@
 </head>
 
 <body>
-    <div>
-        <b>Objective</b>: Implement lazy loading for images to improve page performance.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create multiple image elements with a data-src attribute.</li>
-            <li>Load the image source when the image comes into the viewport.</li>
-        </ul>
+    <div class="task"
+        style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+
+        <div>
+            <b>Objective</b>: Implement lazy loading for images to improve page performance.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create multiple image elements with a data-src attribute.</li>
+                <li>Load the image source when the image comes into the viewport.</li>
+            </ul>
+        </div>
     </div>
 
-    <div style="height: 2000px; background-color: lightgray;">
-        <img class="lazy" data-src="path/to/image1.jpg" alt="Image 1"
-            style="margin-top: 500px; width: 80px;">
-        <img class="lazy" data-src="path/to/image2.jpg" alt="Image 2"
-            style="margin-top: 500px; width: 80px;">
+    <div style="height: 700px; background-color: lightgray; display: flex; justify-content: center; align-items: center;">
+        <img class="lazy" data-src="img/loading_248958.png" alt="Image 1"
+            style="margin-top: 300px; width: 80px;">
+        <img class="lazy" data-src="img/loading_248958.png" alt="Image 2"
+            style="margin-top: 300px; width: 80px; margin-left: 50px;">
         <!-- Add more lazy-loaded images if needed -->
     </div>
 

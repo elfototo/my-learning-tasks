@@ -9,19 +9,25 @@
 </head>
 
 <body>
-    <div>
-        <b>Objective</b>: Draw on a canvas by dragging the mouse.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create a canvas element.</li>
-            <li>Use the mousedown, mousemove, and mouseup events to draw on the canvas.
-            </li>
-        </ul>
+    <div class="task"
+        style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+
+        <div>
+            <b>Objective</b>: Draw on a canvas by dragging the mouse.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create a canvas element.</li>
+                <li>Use the mousedown, mousemove, and mouseup events to draw on the canvas.
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <canvas id="draw-canvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+    <div class="wrap" style="display: flex; justify-content: center;">
+        <canvas id="draw-canvas" width="500px" height="500px" style="border: 1px solid black;"></canvas>
+    </div>
 
     <script>
         let canvas = document.getElementById("draw-canvas");
@@ -39,7 +45,7 @@
                 ctx.moveTo(event.offsetX, event.offsetY);
             }
         });
-        
+
     </script>
 </body>
 
