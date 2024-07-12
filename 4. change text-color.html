@@ -18,20 +18,29 @@
             border-color: lightgrey;
             padding: 20px;
             background-color: lightskyblue;
-            width: 250px;
+            width: 300px;
             cursor: pointer;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 25px;
         }
     </style>
 
-    <div>
-        <b>Objective</b>: Change the text color of a paragraph when it is clicked.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create a paragraph element</li>
-            <li>Use the click event to change the text color.</li>
-        </ul>
+    <div class="task"
+        style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+        <div>
+            <b>Objective</b>: Change the text color of a paragraph when it is clicked.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create a paragraph element</li>
+                <li>Use the click event to change the text color.</li>
+            </ul>
+        </div>
     </div>
 
     <p class="text-paragraph" id="text-paragraph">Click me to change my color!</p>

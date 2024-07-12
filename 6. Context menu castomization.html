@@ -9,18 +9,20 @@
 </head>
 
 <body>
-    <div>
-        <b>Objective</b>: Display a custom context menu on right-click.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create a div element.</li>
-            <li>Use the contextmenu event to display a custom context menu.</li>
-        </ul>
+    <div class="task" style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+        <div>
+            <b>Objective</b>: Display a custom context menu on right-click.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create a div element.</li>
+                <li>Use the contextmenu event to display a custom context menu.</li>
+            </ul>
+        </div>
     </div>
 
-    <div id="context-div" style="width: 200px; height: 200px; background-color: lightcoral;">Right-click for menu!</div>
+    <div id="context-div" style="width: 200px; height: 200px; background-color: lightcoral; margin: 0 auto; font-family: 'Courier New', Courier, monospace; font-size: 25px; display: flex; justify-content: center; align-items: center; padding: 20px;">Right-click for menu!</div>
     <div id="custom-menu"
         style="display: none; position: absolute; background: white; border: 1px solid black; padding: 10px;">
         Custom Menu
@@ -35,8 +37,8 @@
             event.preventDefault();
 
             customMenu.style.display = "block";
-            customMenu.style.top = `${event.clientX}px`;
-            customMenu.style.left = `${event.clientY}px`;
+            customMenu.style.top = `${event.clientY + 10}px`;
+            customMenu.style.left = `${event.clientX + 10}px`;
 
         });
         document.addEventListener("click", (event) => {

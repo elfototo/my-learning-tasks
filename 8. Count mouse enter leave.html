@@ -9,21 +9,23 @@
 </head>
 
 <body>
-    <div>
-        <b>Objective</b>: Count the number of times the mouse enters and leaves a div.
-    </div>
-    <div>
-        <b>Instructions</b>:
-        <ul>
-            <li>Create a div element.</li>
-            <li>Use the mouseenter and mouseleave events to count and display the number of times the mouse enters and
-                leaves the div.
-            </li>
-        </ul>
+    <div class="task" style="margin: 100px auto 50px; max-width: 500px; background-color: beige; padding: 20px; border-radius: 20px;">
+        <div>
+            <b>Objective</b>: Count the number of times the mouse enters and leaves a div.
+        </div>
+        <div>
+            <b>Instructions</b>:
+            <ul>
+                <li>Create a div element.</li>
+                <li>Use the mouseenter and mouseleave events to count and display the number of times the mouse enters
+                    and
+                    leaves the div.
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div id="count-div" style="width: 200px; height: 200px; background-color: lightgreen;">Mouse enters: 0, Mouse
-        leaves: 0</div>
+    <div id="count-div" style="width: 300px; height: 200px; background-color: lightgreen; margin: 0 auto; padding: 20px; font-family: 'Courier New', Courier, monospace;; font-size: 25px; color: rgb(0, 150, 0); display: flex; justify-content: center; align-items: center;">Mouse enters: 0 <br> Mouse leaves: 0</div>
 
     <script>
         let countDiv = document.getElementById("count-div");
@@ -32,11 +34,11 @@
 
         countDiv.addEventListener("mouseenter", (event) => {
             countEnter++;
-            countDiv.innerHTML = `Mouse enters: ${countEnter}, Mouse leaves: ${countLeaves}`
+            countDiv.innerHTML = `Mouse enters: ${countEnter}<br>Mouse leaves: ${countLeaves}`
         });
         countDiv.addEventListener("mouseleave", (event) => {
             countLeaves++;
-            countDiv.innerHTML = `Mouse enters: ${countEnter}, Mouse leaves: ${countLeaves}`
+            countDiv.innerHTML = `Mouse enters: ${countEnter}<br>Mouse leaves: ${countLeaves}`
         });
 
 
