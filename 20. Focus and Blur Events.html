@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus and Blur Events</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+        }
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .container label {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .container input[type="text"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .container input[type="text"]:focus {
+            background-color: #e0f7fa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required>
+            <label for="email">e-mail</label>
+            <input type="text" id="email" required>
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll('input[type = "text"]').forEach(input => {
+            input.addEventListener("focus", () => {
+                input.style.backgroundColor = "#e0f7fa";
+            });
+            input.addEventListener("blur", () => {
+                input.style.backgroundColor = "";
+            });
+        });
+    </script>
+
+</body>
+
+</html>
