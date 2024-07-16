@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus and Blur with visual feedback</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            height: 100vh;
+        }
+        .container {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+        }
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .container label {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .container input[type="text"] {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        .container input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <label for="userName">User name</label>
+            <input type="text" id="userName">
+            <label for="password">Password</label>
+            <input type="text" id="password">
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll("input[type='text']").forEach(input => {
+            input.addEventListener("focus", () => {
+                input.style.borderColor = "#007bff"
+            });
+            input.addEventListener("blur", () => {
+                input.style.borderColor = "#ddd"
+            });
+        })
+    </script>
+</body>
+
+</html>
