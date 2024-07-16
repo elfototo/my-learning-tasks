@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive form with validation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-container label {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%;
+            background-color: #006bff;
+            border: none;
+            border-radius: 4px;
+            padding: 15px;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-container .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            min-height: 18px;
+            min-width: 280px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="form-container">
+        <form id="userForm">
+            <div class="form-group">
+                <label for="username">Name:</label>
+                <input type="text" name="name" id="name">
+                <div class="error" id="nameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="text" name="email" id="email">
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="text" name="password" id="password">
+                <div class="error" id="passwordError"></div>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("userForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+
+        function validateName() {
+            const name = nameInput.value;
+            if (name.length < 3) {
+                nameError.textContent = "Name must be at least 3 characters long";
+                return false;
+            } else {
+                nameError.textContent = "";
+                return true;
+            }
+        };
+
+        function validateEmail() {
+            const email = emailInput.value;
+            const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = "Please enter a valid email adress";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true;
+            }
+        };
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long";
+                return false;
+            } else {
+                passwordError.textContent = "";
+                return true;
+            }
+        };
+
+        nameInput.addEventListener("input", validateName);
+        emailInput.addEventListener("input", validateEmail);
+        passwordInput.addEventListener("input", validatePassword);
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+
+            if (isNameValid && isEmailValid && isPasswordValid) {
+                alert("form submited succesfuly!");
+            }
+        });
+        
+    </script>
+
+</body>
+
+</html>
