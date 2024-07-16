@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input event on range slider</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container label {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <label for="range">Adjust the slider:</label>
+            <input type="range" id="range" min="0" max="100" value="50">
+        </form>
+        <div class="result" id="result">Value: 50</div>
+    </div>
+
+    <script>
+        document.getElementById("range").addEventListener("input", function () {
+            document.getElementById("result").innerText = `Value: ${this.value}`;
+        })
+    </script>
+
+</body>
+
+</html>
