@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas drawing application</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        canvas {
+            border: 1px solid #333;
+            background-color: #fff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="drawingCanvas" width="500" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById("drawingCanvas");
+        const ctx = canvas.getContext("2d");
+        let isdrawing = false;
+
+        canvas.addEventListener("mousedown", (event) => {
+            isdrawing = true;
+            ctx.beginPath();
+            ctx.moveTo(event.offsetX, event.offsetY);
+        });
+
+        canvas.addEventListener("mousemove", (event) => {
+            if (isdrawing) {
+                ctx.lineTo(event.offsetX, event.offsetY);
+                ctx.stroke();
+            }
+        });
+        
+        canvas.addEventListener("mouseup", () => {
+            isdrawing = false;
+        });
+
+        canvas.addEventListener("mouseleave", () => {
+            isdrawing = false;
+        })
+    </script>
+</body>
+
+</html>
