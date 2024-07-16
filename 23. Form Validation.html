@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            padding: 20px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+        }
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .container label {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .container input[type="email"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .container input[type="submit"] {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            color: #333;
+        }
+        .success {
+            color: rgb(0, 250, 0);
+        }
+        .error {
+            color: rgb(250, 0, 0);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <form id="emailForm">
+            <label for="email">Enter your e-mail</label>
+            <input type="email" id="email" required>
+            <input type="submit" value="submit">
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("emailForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const result = document.getElementById("result");
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailPattern.test(email)) {
+                result.innerText = "Success! Valid e-mail";
+                result.className = "result success";
+            } else {
+                result.innerText = "Error! Invalid e-mail format";
+                result.className = "result error";
+            }
+        })
+    </script>
+
+</body>
+
+</html>
