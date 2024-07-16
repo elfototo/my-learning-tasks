@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form submission with dinamic message</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+        }
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .container label {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .container input[type="submit"] {
+            background-color: #006bff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            color: #333;
+        }
+        .message {
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <form id="userNameForm">
+            <label for="username">Usernames:</label>
+            <input type="text" id="username">
+            <input type="submit" value="Submit">
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("userNameForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const userName = document.getElementById("username").value;
+            document.getElementById("result").innerText = `Hello ${userName}, Welcome to our website`
+        })
+    </script>
+
+</body>
+
+</html>
