@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and drop file upload</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f4f4f9;
+            height: 100vh;
+        }
+        .upload-container {
+            width: 400px;
+            height: 200px;
+            background: #fff;
+            padding: 20px;
+            color: #333;
+            border-radius: 8px;
+            border: 2px dashed #007bff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .upload-container.gragover {
+            background-color: #e9e5ff;
+        }
+        .file-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="upload-container" id="uploadContainer">
+        <p>Drag and drop a file here</p>
+        <div class="file-info" id="fileInfo"></div>
+    </div>
+
+    <script>
+        const uploadContainer = document.getElementById("uploadContainer");
+        const fileInfo = document.getElementById("fileInfo");
+
+        uploadContainer.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            uploadContainer.classList.add("gragover");
+        });
+
+        uploadContainer.addEventListener("dragleave", () => {
+            uploadContainer.classList.remove("gragover");
+        });
+
+        uploadContainer.addEventListener("drop", (event) => {
+            event.preventDefault();
+            uploadContainer.classList.remove("gragover");
+
+            const file = event.dataTransfer.files[0];
+            
+            if (file) {
+                fileInfo.textContent = `File: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
