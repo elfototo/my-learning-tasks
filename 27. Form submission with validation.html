@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form submission with validation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+        }
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .container label {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px; 
+            margin-bottom: 20px;
+        }
+        .container input[type="submit"] {
+            background-color: #007bff;
+            padding: 10px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s esae;
+        }
+        .container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            color: #333;
+        }
+        .error {
+            color: rgb(250, 0, 0);
+        }
+        .success {
+            color: rgb(0, 250, 0);
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <form id="usernameForm">
+            <label for="userName">User name:</label>
+            <input type="text" id="userName">
+            <input type="submit" value="Submit">
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("usernameForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const userName = document.getElementById("userName").value;
+            const result = document.getElementById("result");
+            if (userName.length >= 3) {
+                result.innerText = "Success! Valid username";
+                result.className = "result success";
+            } else {
+                result.innerText = "Error! Invalid username";
+                result.className = "result error";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
