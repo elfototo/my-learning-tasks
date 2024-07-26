@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer with animation</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .timer {
+            font-size: 80px;
+            color: #007bff;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="timer" id="countdownTimer">10</div>
+
+    <script>
+        const timerElement = document.getElementById("countdownTimer");
+        let timeLeft = 10;
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerElement.textContent = "Time\'s up!";
+                timerElement.style.animation = "none";
+            }
+        }, 1000)
+    </script>
+
+</body>
+
+</html>
