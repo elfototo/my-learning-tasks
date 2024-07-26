@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List with Drag and Drop sorting</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .todo-container {
+            width: 400px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .todo-container input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .todo-item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: grab;
+            display: flex;
+            justify-content: space-between;
+        }
+        .todo-item.dragging {
+            opacity: 0.5;
+        }
+        .btn {
+            padding: 5px;
+            background-color: rgb(208, 24, 24);
+            border: none;
+            border-radius: 2px;
+            color: #fff;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="todo-container">
+        <input type="text" id="newToDo" placeholder="Add a new task...">
+        <div id="todoList"></div>
+    </div>
+
+    <script>
+        const newToDoinput = document.getElementById("newToDo");
+        const todoList = document.getElementById("todoList");
+
+        newToDoinput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && newToDoinput.value.trim() !== "") {
+                addToDoItem(newToDoinput.value.trim());
+                newToDoinput.value = "";
+            }
+        });
+
+        function addToDoItem(text) {
+            const todoItem = document.createElement("div");
+            todoItem.className = "todo-item";
+            todoItem.draggable = true;
+            todoItem.innerHTML = `
+            <span>${text}</span>
+            <button class="btn" onclick="deleteTodoItem(this)">Delete</button>
+            `;
+            todoList.appendChild(todoItem);
+            addDragAndDropListeners(todoItem);
+        }
+
+        function deleteTodoItem(button) {
+            button.parentElement.remove();
+        };
+
+        function addDragAndDropListeners(item) {
+            item.addEventListener("dragstart", () => {
+                item.classList.add("dragging");
+            });
+
+            item.addEventListener("dragend", () => {
+                item.classList.remove("dragging");
+            });
+
+            item.addEventListener("dragover", (event) => {
+                event.preventDefault();
+                const draggingItem = document.querySelector(".dragging");
+                if (draggingItem) {
+                    todoList.insertBefore(draggingItem, item.nextSibling)
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

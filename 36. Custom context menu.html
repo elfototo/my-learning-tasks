@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom context menu</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .context-menu {
+            position: absolute;
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .target-element {
+            font-size: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .context-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .context-menu li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .context-menu li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="target-element" id="targetElement">Right-click me!</div>
+    <div class="context-menu" id="contextMenu">
+        <ul>
+            <li id="contextEdit">Edit</li>
+            <li id="contextDelete">Delete</li>
+            <li id="contextShowInfo">More info</li>
+        </ul>
+    </div>
+
+    <script>
+        const targetElement = document.getElementById("targetElement");
+        const contextMenu = document.getElementById("contextMenu");
+
+        targetElement.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+            contextMenu.style.display = "block";
+            contextMenu.style.top = `${event.clientY + 10}px`;
+            contextMenu.style.left = `${event.clientX + 10}px`;
+        });
+
+        document.addEventListener("click", function (event) {
+            contextMenu.style.display = "none";
+        });
+
+        const contextEdit = document.getElementById("contextEdit");
+        const contextDelete = document.getElementById("contextDelete");
+        const contextShowInfo = document.getElementById("contextShowInfo");
+
+        contextEdit.addEventListener("click", function (event) {
+            let text = prompt("editing here...");
+            if (text !== "") {
+                targetElement.textContent = text;
+            }
+        });
+
+        contextDelete.addEventListener("click", function (event) {
+            targetElement.textContent = "Right-click me!";
+        });
+
+        contextShowInfo.addEventListener("click", function (event) {
+            alert("more information about button")
+        })
+    </script>
+
+</body>
+
+</html>
