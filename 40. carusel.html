@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image carusel</title>
+
+    <style>
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .carousel-images {
+            overflow: hidden;
+            display: flex;
+            position: relative;
+        }
+
+        .carousel-images img {
+            min-width: 100%;
+            transition: transform 0.5s easy-in-out;
+        }
+
+        .carousel-thumbnails {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .carousel-thumbnails img {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .carousel-navigation {
+            position: absolute;
+            top: 42%;
+            left: 2%;
+            width: 96%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-navigation span {
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 10px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .carousel-dots span {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .carousel-dots .active-dot {
+            background: #333;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="img/carusel (1).jpg" alt="image 1">
+            <img src="img/carusel (2).jpg" alt="image 2">
+            <img src="img/carusel (3).jpg" alt="image 3">
+        </div>
+        <div class="carousel-caption"></div>
+        <div class="carousel-navigation">
+            <span id="prev">&#9664;</span>
+            <span id="next">&#9654;</span>
+        </div>
+        <div class="carousel-thumbnails">
+            <img src="img/carusel (1).jpg" alt="image 1">
+            <img src="img/carusel (2).jpg" alt="image 2">
+            <img src="img/carusel (3).jpg" alt="image 3">
+        </div>
+        <div class="carousel-dots">
+            <span class="active-dot"></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll(".carousel-images img");
+        const thumbnails = document.querySelectorAll(".carousel-thumbnails img");
+        const dots = document.querySelectorAll(".carousel-dots span");
+        const caption = document.querySelector(".carousel-caption");
+        const captions = ["Caption 1", "Caption 2", "Caption 3"];
+        let index = 0;
+
+        function upfateCarousel() {
+            images.forEach((img, i) => {
+                img.style.transform = `translateX(-${index * 100}%)`;
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("active-dot", i === index);
+            });
+            caption.textContent = captions[index]
+        }
+
+        document.getElementById("prev").addEventListener("click", () => {
+            index = (index > 0) ? index - 1 : images.length - 1;
+            upfateCarousel();
+        });
+
+        document.getElementById("next").addEventListener("click", () => {
+            index = (index < images.length - 1) ? index + 1 : 0;
+            upfateCarousel();
+        });
+
+        thumbnails.forEach((thumbnail, i) => {
+            thumbnail.addEventListener("click", () => {
+                index = i;
+                upfateCarousel();
+            });
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener("click", () => {
+                index = i;
+                upfateCarousel();
+            });
+        });
+
+        upfateCarousel();
+
+
+    </script>
+
+</body>
+
+</html>
