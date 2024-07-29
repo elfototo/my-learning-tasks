@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar with Dropdowns and sticky behavior</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #333;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 20px;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-menu li {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .navbar-menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            list-style: none;
+            position: absolute;
+            background: #444;
+            top: 100%;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            min-width: 150px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu li:hover {
+            background: #333;
+        }
+
+        .dropdown-menu a {
+            padding: 10px;
+            display: block;
+        }
+
+        .navbar-menu li:hover .dropdown-menu {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar-menu li {
+                margin: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar-menu.active {
+                display: flex;
+                position: absolute;
+                background: #444;
+                top: 100%;
+                left: 70%;
+                margin: 0;
+                padding: 0;
+                min-width: 150px;
+                z-index: 1000;
+            }
+
+            .navbar-menu.active li {
+                padding: 10px;
+            }
+
+            .navbar-menu.active li:hover {
+                background: #333;
+            }
+
+            .navbar-menu li:hover .dropdown-menu {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">Brand</div>
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Services</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Service 1</a></li>
+                        <li><a href="#">Service 2</a></li>
+                        <li><a href="#">Service 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        const hamburger = document.getElementById("hamburger");
+        const navbarMenu = document.getElementById("navbarMenu");
+
+        hamburger.addEventListener("click", () => {
+            navbarMenu.classList.toggle("active");
+        });
+
+    </script>
+
+</body>
+
+</html>
