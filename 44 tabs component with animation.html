@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab components with animation</title>
+
+    <style>
+        body {
+            background-color: #f4f4ff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tabs {
+            margin-top: 150px;
+            display: flex;
+            cursor: pointer;
+        }
+
+        .tab {
+            background: #f9f9f9;
+            padding: 10px 50px;
+            border: none;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 8px 8px 0 0;
+            border-color: #ddd #ddd #fff;
+        }
+        .tab:last-child {
+            margin-right: 0;
+        }
+
+        .tab.active {
+            background: #fff;
+            color: #0056bf;
+            animation: shadowEffect 1s ease;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 50px 154px ;
+            animation: fadeIn 0.9s easy;
+            background: #fff;
+            border-top: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shadowEffect {
+            0% {
+                box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(0, 86, 191, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-target="tab1">Tab 1</div>
+            <div class="tab" data-target="tab2">Tab 2</div>
+            <div class="tab" data-target="tab3">Tab 3</div>
+        </div>
+        <div class="tab-content active" id="tab1">Content for tab 1</div>
+        <div class="tab-content" id="tab2">Content for tab 2</div>
+        <div class="tab-content" id="tab3">Content for tab 3</div>
+    </div>
+
+    <script>
+
+        const tabs = document.querySelectorAll(".tab");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(tab => tab.classList.remove("active"));
+                tab.classList.add("active");
+
+                const target = tab.getAttribute("data-target");
+                tabContents.forEach(content => {
+                    content.classList.remove("active");
+                    if (content.id === target) {
+                        content.classList.add("active");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>
