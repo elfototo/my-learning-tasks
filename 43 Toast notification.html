@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast notification</title>
+
+    <style>
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .container button {
+            margin-right: 20px;
+        }
+
+        .container button:last-child {
+            margin-right: 0;
+        }
+
+        .btnToast {
+            background: #0056bf;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            padding: 5px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btnToast:hover {
+            background-color: #004190;
+        }
+
+        .toasts {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+
+        .toast {
+            display: flex;
+            justify-content: space-between;
+            background: #fff;
+            border-left: 5px solid;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateX(100%);
+            animation: slideIn 0.5s forwards;
+            transition: opacity 0.5s, transform 0.5s, margin-bottom 0.5s easy;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+                margin-bottom: -50px;
+            }
+        }
+
+        .toast.success {
+            border-color: #28a745;
+        }
+
+        .toast.error {
+            border-color: #dc3545;
+        }
+
+        .toast.warning {
+            border-color: #ffc107;
+        }
+
+        .toast.info {
+            border-color: #17a2b8;
+        }
+
+        .toast .close {
+            cursor: pointer;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toasts" id="toasts"></div>
+    <div class="container">
+        <button class="btnToast" onclick="showToast('success', 'success message')" style="background-color: #28a745;">Show success</button>
+        <button class="btnToast" onclick="showToast('error', 'error message')" style="background-color: #dc3545;">Show error</button>
+        <button class="btnToast" onclick="showToast('warning', 'warning message')" style="background-color: #ffc107;">Show warning</button>
+        <button class="btnToast" onclick="showToast('info', 'info message')" style="background-color: #17a2b8;">Show info</button>
+    </div>
+
+    <script>
+        function showToast(type, message) {
+            const toast = document.createElement("div");
+            toast.classList.add("toast", type);
+
+            toast.innerHTML = `
+            <span>${message}</span>
+            <span class="close" onclick="dismissToast(this.parentElement)">&times;</span>
+            `;
+
+            document.getElementById("toasts").appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = "slideOut 0.5s forwards";
+                toast.addEventListener("animationend", () => toast.remove());
+            }, 5000)
+        }
+
+        function dismissToast(toast) {
+            toast.style.animation = "slideOut 0.5s forwards";
+            toast.addEventListener("animationend", () => toast.remove());
+        }
+    </script>
+</body>
+
+</html>
