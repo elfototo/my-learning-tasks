@@ -35,6 +35,8 @@
             border-radius: 4px;
             overflow: hidden;    
             position: relative;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
         }
 
         .progress-fill {
@@ -63,7 +65,7 @@
 
         progressInput.addEventListener("input", () => {
             const value = Math.min(Math.max(progressInput.value, 0), 100);
-            progressFill.style.width = value + "%"
+            progressFill.style.width = value + "%";
         });
 
     </script>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form With progress indicator</title>
+
+    <style>
+        body {
+            background-color: #f4f4f9;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .step.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step input,
+        .step textarea {
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .step label {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar div {
+            width: 100%;
+            background: #ddd;
+            height: 5px;
+            position: relative;
+        }
+
+        .progress-bar div.active {
+            background: #4caf50;
+        }
+
+        .buttons {
+            display: flex;
+        }
+
+        .buttons button {
+            margin-right: 20px;
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 5px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .buttons button:hover {
+            background-color: #306d32;
+        }
+
+        .buttons button:last-child {
+            margin-right: 0;
+        }
+
+        .error {
+            visibility: hidden;
+            height: 14px;
+            margin-top: 5px;
+            font-size: 14px;
+            color: red;
+        }
+
+        .error.visible {
+            visibility: visible;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="progress-bar">
+            <div class="step-indicator active" id="step1indicator"></div>
+            <div class="step-indicator" id="step2indicator"></div>
+            <div class="step-indicator" id="step3indicator"></div>
+        </div>
+
+        <form class="multi-step-form" id="multiStepForm">
+            <div class="step active" id="step1">
+                <h2>Step 1</h2>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+                <div class="error" id="nameError">Name must be at least 3 characters long</div>
+            </div>
+            <div class="step" id="step2">
+                <h2>Step 2</h2>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+            <div class="step" id="step3">
+                <h2>Step 3</h2>
+                <label for="message">Message</label>
+                <textarea id="message" name="message"></textarea>
+                <div class="error" id="messageError">Message must be at least 3 characters long</div>
+            </div>
+            <div class="buttons">
+                <button type="button" id="prevBtn">&#9664;</button>
+                <button type="button" id="nextBtn">&#9654;</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll(".step");
+        const stepIndicators = document.querySelectorAll(".step-indicator");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const messageInput = document.getElementById("message");
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const messageError = document.getElementById("messageError");
+
+        let currentStep = 0;
+
+        function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+                step.classList.toggle("active", index === stepIndex);
+                stepIndicators[index].classList.toggle("active", index <= stepIndex);
+            });
+
+            prevBtn.style.display = stepIndex === 0 ? "none" : "inline-block";
+        }
+
+        nextBtn.addEventListener("click", () => {
+            if (currentStep < steps.length - 1) {
+                if (validateStep(currentStep)) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            } else {
+                if (validateStep(currentStep)) {
+                    alert("Form submitted successfully");
+                    document.getElementById("multiStepForm").reset();
+                    currentStep = 0;
+                    showStep(currentStep);
+                }
+            }
+        });
+
+        prevBtn.addEventListener("click", () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        function validateStep(stepIndex) {
+            let isValid = true;
+
+            if (stepIndex === 0) {
+                const name = nameInput.value.trim();
+                if (name.length < 3) {
+                    nameError.classList.add("visible");
+                    isValid = false;
+                } else {
+                    nameError.classList.remove("visible");
+                }
+            }
+
+            if (stepIndex === 1) {
+                const email = emailInput.value.trim();
+                const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
+                if (!emailPattern.test(email)) {
+                    emailError.classList.add("visible");
+                    isValid = false;
+                } else {
+                    emailError.classList.remove("visible");
+                }
+            }
+
+            if (stepIndex === 2) {
+                const message = messageInput.value.trim();
+                if (message.length < 3) {
+                    messageError.classList.add("visible");
+                    isValid = false;
+                } else {
+                    messageError.classList.remove("visible");
+                }
+            }
+            return isValid;
+        }
+
+        // Attach input event listeners
+        nameInput.addEventListener("input", () => validateStep(0));
+        emailInput.addEventListener("input", () => validateStep(1));
+        messageInput.addEventListener("input", () => validateStep(2));
+
+        showStep(currentStep);
+    </script>
+
+</body>
+
+</html>
