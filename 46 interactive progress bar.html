@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive progress bar</title>
+
+    <style>
+        body {
+            background-color: #f4f4f9;
+            height: 100vh;
+        }
+
+        .progress-container {
+            max-width: 600px;
+            margin: 150px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .progress-container input {
+            width: 100px;
+            margin: 10px 10px 30px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: f1f1f1;
+            border-radius: 4px;
+            overflow: hidden;    
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 20px;
+            background: #4caf50;
+            width: 0;
+            transition: width 0.3s;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="progress-container">
+        <input type="number" min="0" max="100" placeholder="Enter %..." id="progressInput">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <script>
+        const progressInput = document.getElementById("progressInput");
+        const progressFill = document.getElementById("progressFill");
+
+        progressInput.addEventListener("input", () => {
+            const value = Math.min(Math.max(progressInput.value, 0), 100);
+            progressFill.style.width = value + "%"
+        });
+
+    </script>
+
+</body>
+
+</html>
