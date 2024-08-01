@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data table</title>
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-container {
+            margin: 50px auto;
+            width: 80%;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .filter-input {
+            margin: 20px;
+            padding: 10px;
+            width: calc(100% - 40px);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="table-container">
+        <input type="text" placeholder="Filter..." class="filter-input" id="filterInput">
+        <table>
+            <thead>
+                <tr>
+                    <th data-column="name">Name</th>
+                    <th data-column="age">Age</th>
+                    <th data-column="email">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>28</td>
+                    <td>john.doe@example.com</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>32</td>
+                    <td>smoth.smith@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mike Johnson</td>
+                    <td>45</td>
+                    <td>johns.doe@example.com</td>
+                </tr>
+                <tr>
+                    <td>Jeck Sparrow</td>
+                    <td>38</td>
+                    <td>sparr.doe@example.com</td>
+                </tr>
+                <tr>
+                    <td>Maks Power</td>
+                    <td>29</td>
+                    <td>power.smith@example.com</td>
+                </tr>
+                <tr>
+                    <td>Liza Davydova</td>
+                    <td>28</td>
+                    <td>davydova.doe@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        const filterInput = document.getElementById("filterInput");
+        const table = document.querySelector("table");
+        let rows = Array.from(table.querySelectorAll("tbody tr"));
+
+        filterInput.addEventListener("input", () => {
+            const filterValue = filterInput.value.toLowerCase();
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(filterValue) ? "" : "none";
+            });
+        });
+
+        table.querySelectorAll("th").forEach(th => {
+            th.addEventListener("click", () => {
+                const column = th.dataset.column;
+                const order = th.dataset.order === 'asc' ? 'desk' : 'asc';
+
+                th.dataset.order = order;
+
+                rows.sort((a, b) => {
+                    const aText = a.querySelector(`td:nth-child(${Array.from(th.parentNode.children).indexOf(th) + 1})`).innerText;
+                    const bText = b.querySelector(`td:nth-child(${Array.from(th.parentNode.children).indexOf(th) + 1})`).innerText;
+
+                    return order === 'asc' ? aText.localeCompare(bText) : bText.localeCompare(aText);
+                });
+
+                rows.forEach(row => table.querySelector("tbody").appendChild(row));
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
