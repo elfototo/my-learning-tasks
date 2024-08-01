@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time chat</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            width: 300px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .chat-message {
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .chat-input button {
+            background-color: #007bff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .typing-indicator {
+            display: none;
+            font-style: italic;
+            color: #888;
+        }
+
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .message .username {
+            font-weight: bold;
+        }
+
+        .message .text {
+            margin-bottom: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Chat room</div>
+        <div class="chat-message" id="chatMessage"></div>
+        <div class="typing-indicator" id="typingIndicator">Someone is typing...</div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type a message..." id="chatInput">
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+
+        const messagesContainer = document.getElementById("chatMessage");
+        const chatInput = document.getElementById("chatInput");
+        const sendBtn = document.getElementById("sendBtn");
+        const typingIndicator = document.getElementById("typingIndicator");
+
+        let username = prompt("Enter your username...");
+        document.cookie = `username=${username}`;
+
+        const socket = new WebSocket("wss://your-websocket-url");
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === "message") {
+                addMessage(data.username, data.text);
+            } else if (data.type === "typing") {
+                typingIndicator.style.display = "block";
+                setTimeout(() => typingIndicator.style.display = "none", 2000)
+            }
+        };
+
+        chatInput.addEventListener("keypress", () => {
+            socket.send(JSON.stringify({ type: "typing", username }))
+        });
+
+        sendBtn.addEventListener("click", () => {
+            const message = chatInput.value;
+
+            if (message) {
+                socket.send(JSON.stringify({ type: "message", username, text: message }));
+                addMessage(username, message);
+                chatInput.value = "";
+            }
+        });
+
+        function addMessage(username, text) {
+            const messageElem = document.createElement("div");
+            messageElem.classList.add("message");
+            messageElem.innerHTML = `
+            <div class="username">${username}</div>
+            <div class="text">${text}</div>
+            `;
+
+            messagesContainer.appendChild(messageElem);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+    </script>
+
+</body>
+
+</html>

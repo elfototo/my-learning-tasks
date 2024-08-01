@@ -114,7 +114,7 @@
             <div class="step active" id="step1">
                 <h2>Step 1</h2>
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" autofocus>
                 <div class="error" id="nameError">Name must be at least 3 characters long</div>
             </div>
             <div class="step" id="step2">
@@ -227,6 +227,8 @@
         messageInput.addEventListener("input", () => validateStep(2));
 
         showStep(currentStep);
+
+        
     </script>
 
 </body>
