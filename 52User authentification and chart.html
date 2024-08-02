@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User authentification and interactive dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .login-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-form button {
+            cursor: pointer;
+            background-color: #056bff;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .charts-container {
+            /* display: flex; */
+            display: none;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .chart {
+            width: 45%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        @media(max-width: 768px) {
+            .chart {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="login-form" id="loginForm">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="loginBtn">Login</button>
+        </div>
+
+        <div class="charts-container" id="chartsContainer">
+            <div class="chart">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        function login() {
+            const username = document.getElementById("username").value;
+            document.cookie = `username=${username};path=/`;
+
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("chartsContainer").style.display = "flex";
+
+            loadchart();
+        }
+
+        document.getElementById("loginBtn").addEventListener("click", login);
+
+        function loadchart() {
+            const ctxLine = document.getElementById("lineChart").getContext("2d");
+            const ctxBar = document.getElementById("barChart").getContext("2d");
+
+            new Chart(ctxLine, {
+                type: "line",
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June"],
+                    datasets: [{
+                        label: "Sales",
+                        data: [30, 20, 50, 40, 70, 50],
+                        borderColor: "#007bff",
+                        fill: false
+                    }]
+                }
+            });
+
+            new Chart(ctxBar, {
+                type: "bar",
+                data: {
+                    labels: ["red", "blue", "green", "Yellow", "Purple", "Orange"],
+                    datasets: [{
+                        label: "Votes",
+                        data: [12, 20, 3, 5, 1, 4],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
