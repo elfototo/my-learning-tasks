@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive recipe finder</title>
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .search-bar button {
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 0 5px 5px 0;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        /* .recipe-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        } */
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .recipe-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: calc(100% / 4)px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .recipe-card:hover {
+            transform: scale(1.05)
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .recipe-card h3 {
+            margin: 10px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px;
+        }
+
+        .modal-header {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 850px) {
+            .recipe-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for recipe...">
+            <button class="btn-style searchBtn" id="searchBtn">Search</button>
+        </div>
+        <div class="recipe-grid" id="recipeGrid">
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/spagetti.jpg" alt="Recipe image">
+                <h3>Spaghetti Bolognese</h3>
+                <p>A classic italian dish</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/chiken-carry.jpg" alt="Recipe image">
+                <h3>Chiken carry</h3>
+                <p>A spicy and flavorful curry</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/caeser.jpg" alt="Recipe image">
+                <h3>Caesar Salad</h3>
+                <p>A fresh and healthy salad.</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/adana-kebab.jpg" alt="Recipe image">
+                <h3>Turkish Adana-Kebab</h3>
+                <p>Very delicese dish from Turkey.</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/lasagne.jpg" alt="Recipe image">
+                <h3>italian lasagna</h3>
+                <p>Italian lasagna is a layered pasta dish with rich, savory flavors.</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/kesadilja.jpg" alt="Recipe image">
+                <h3>Quesadilla</h3>
+                <p>Quesadilla is a tortilla filled with melted cheese and various fillings.</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/Caprese-Avocado-Omelette.jpg" alt="Recipe image">
+                <h3>Caprese Avocado Omelette</h3>
+                <p>The delicious combination of ingredients creates a healthy breakfast.</p>
+            </div>
+            <div class="recipe-card" id="recipeCard">
+                <img src="img/Italian-pizza.jpg" alt="Recipe image">
+                <h3>Italian Pizza</h3>
+                <p>Italian flatbread topped with sauce, cheese, and various ingredients.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header" id="modalHeader"></div>
+            <div class="modal-body" id="modalBody"></div>
+            <button class="btn-style close-modal" id="closeModal">Close recipe</button>
+        </div>
+    </div>
+
+    <script>
+        function filterRecipes() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const recipes = document.querySelectorAll(".recipe-card");
+
+            recipes.forEach(recipe => {
+                const title = recipe.querySelector("h3").textContent.toLowerCase();
+                recipe.style.display = title.includes(searchInput) ? "" : "none";
+            });
+        }
+
+        document.getElementById("searchInput").addEventListener("input", filterRecipes);
+        document.getElementById("searchBtn").addEventListener("click", filterRecipes);
+
+        function viewRecipe(title, description) {
+            const modal = document.getElementById("modal");
+            document.getElementById("modalHeader").textContent = title;
+            document.getElementById("modalBody").textContent = description;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        document.getElementById("modal").addEventListener("click", (event) => {
+            if (event.target.id === "modal") {
+                closeModal();
+            }
+        });
+        document.getElementById("closeModal").addEventListener("click", closeModal);
+
+        document.querySelectorAll(".recipe-card").forEach(card => {
+            card.addEventListener("click", () => {
+                let titleRecipe = card.querySelector("h3").textContent;
+                let bodyRecipe = card.querySelector("p").textContent;
+
+                viewRecipe(titleRecipe, bodyRecipe);
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
