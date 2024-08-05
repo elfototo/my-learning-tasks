@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>Profile container</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-container {
+            width: 500px;
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .img-wrap {
+            position: relative;
+        }
+
+        .profile-header img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .edit-icon {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            background-color: #eee;
+            color: #333;
+            border-radius: 50%;
+            padding: 5px;
+            display: none;
+            cursor: pointer;
+        }
+
+        .edit-icon.active {
+            display: block;
+        }
+
+        .avatarInput {
+            display: none;
+        }
+
+        .profile-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .profile-header button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-header button:hover {
+            background-color: #186a2b;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-form label {
+            margin-bottom: 10px;
+        }
+
+        .profile-form input {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .profile-form button {
+            padding: 10px;
+            background-color: #28a745;
+            border-radius: 4px;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-form button:hover {
+            background-color: #186a2b;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="img-wrap" id="imgWrap"><img src="https://via.placeholder.com/100" alt="profile picture" id="avatar" ;><i
+                    class="fas fa-pencil-alt edit-icon" id="editIcon"></i></div>
+            <input type="file" class="avatarInput" id="avatarInput" accept="image/*">
+            <div>
+                <h2>Elizaveta Davydova</h2>
+                <button id="editProfile">Edit profile</button>
+            </div>
+        </div>
+        <form class="profile-form" id="profileForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" value="Elizaveta Davydova" disabled>
+            <label for="email">Email:</label>
+            <input type="email" value="elizdavyd@gmail.com" id="email" disabled>
+            <button type="submit" id="saveChanges" disabled>Save Changes</button>
+        </form>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">Loading...</div>
+
+    <script>
+        const editProfileBtn = document.getElementById("editProfile");
+        const saveChangesBtn = document.getElementById("saveChanges");
+        const profileForm = document.getElementById("profileForm");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const avatar = document.getElementById("avatar");
+        const fileInput = document.getElementById("avatarInput");
+
+        let isEditing = false;
+        let originalAvatarSrc = avatar.src;
+
+        editProfileBtn.addEventListener("click", () => {
+            const inputs = profileForm.querySelectorAll("input");
+            inputs.forEach(input => input.disabled = !input.disabled);
+            saveChangesBtn.disabled = !saveChangesBtn.disabled;
+            editProfileBtn.textContent = editProfileBtn.textContent === "Edit profile" ? "Cancel" : "Edit profile";
+
+            isEditing = !isEditing;
+
+            if (isEditing) {
+                avatar.addEventListener("click", handleAvatarClick);
+                editIcon.addEventListener("click", handleAvatarClick);
+                avatar.style.cursor = "pointer";
+                editIcon.classList.add("active");
+            } else {
+                avatar.removeEventListener("click", handleAvatarClick);
+                editIcon.removeEventListener("click", handleAvatarClick);
+                avatar.style.cursor = "default";
+                editIcon.classList.remove("active");
+                
+                if (!document.getElementById("saveChanges").disabled) {
+                    avatar.src = originalAvatarSrc;
+                }
+            }
+        });
+
+        function handleAvatarClick() {
+            fileInput.click();
+        }
+
+        fileInput.addEventListener("change", updateAvatar);
+
+
+        profileForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            loadingOverlay.classList.add("active");
+
+            setTimeout(() => {
+                loadingOverlay.classList.remove("active");
+                alert("profile saved successfully!");
+                editProfileBtn.click();
+            }, 2000);
+        });
+
+        function updateAvatar() {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    avatar.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+    </script>
+
+</body>
+
+</html>
