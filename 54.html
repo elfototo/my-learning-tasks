@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi step form</title>
+
+  <style>
+    body {
+      background-color: #f4f4f9;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      width: 500px;
+      margin: 50px 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .step {
+      display: none;
+      margin-bottom: 20px;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .step label {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .step input {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .progress-bar {
+      margin-bottom: 20px;
+    }
+
+    .progress-bar div {
+      background-color: #0056bf;
+      height: 5px;
+      transition: width 0.3s ease;
+    }
+
+    .form-actions {
+      display: flex;
+    }
+
+    .form-actions button {
+      padding: 5px 10px;
+      background-color: #0056bf;
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-actions button:hover {
+      background-color: #00356d;
+    }
+
+    .form-actions button[type="submit"] {
+      display: none;
+    }
+
+    .form-actions button[disabled] {
+      background-color: #ddd;
+      cursor: not-allowed;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="form-container">
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <form id="multiStepForm">
+      <div class="step active" id="step1">
+        <h2>Step 1</h2>
+        <label for="name">Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="step" id="step2">
+        <h2>Step 2</h2>
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="step" id="step3">
+        <h2>Step 3</h2>
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" required>
+      </div>
+      <div class="form-actions">
+        <button type="button" id="prevBtn" disabled>Previous</button>
+        <button type="button" id="nextBtn">Next</button>
+        <button type="submit" class="submitBtn" id="submitBtn">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll(".step");
+    const progress = document.getElementById("progress");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    let currentStep = 0;
+
+    function updateForm() {
+      steps.forEach((step, index) => {
+        step.classList.toggle("active", index === currentStep)
+      });
+
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.style.display = currentStep === steps.length - 1 ? "none" : "block";
+      submitBtn.style.display = currentStep === steps.length - 1 ? "block" : "none";
+
+      progress.style.width = `${(currentStep / (steps.length - 1)) * 100}%`;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentStep > 0) {
+        currentStep--;
+        updateForm();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        updateForm();
+      }
+    });
+
+    document.getElementById("multiStepForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert("Form submited successfully!");
+    });
+
+    updateForm();
+
+  </script>
+
+</body>
+
+</html>
