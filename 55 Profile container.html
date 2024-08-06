@@ -169,9 +169,16 @@
         const loadingOverlay = document.getElementById("loadingOverlay");
         const avatar = document.getElementById("avatar");
         const fileInput = document.getElementById("avatarInput");
+        const editIcon = document.getElementById("editIcon");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+
 
         let isEditing = false;
         let originalAvatarSrc = avatar.src;
+        let tempAvatarSrc = originalAvatarSrc;
+        let originName = nameInput.value;
+        let originEmail = emailInput.value;
 
         editProfileBtn.addEventListener("click", () => {
             const inputs = profileForm.querySelectorAll("input");
@@ -191,9 +198,11 @@
                 editIcon.removeEventListener("click", handleAvatarClick);
                 avatar.style.cursor = "default";
                 editIcon.classList.remove("active");
-                
-                if (!document.getElementById("saveChanges").disabled) {
+
+                if (editProfileBtn.textContent === "Edit profile") {
                     avatar.src = originalAvatarSrc;
+                    nameInput.value = originName;
+                    emailInput.value = originEmail;
                 }
             }
         });
@@ -204,14 +213,16 @@
 
         fileInput.addEventListener("change", updateAvatar);
 
-
         profileForm.addEventListener("submit", (event) => {
             event.preventDefault();
             loadingOverlay.classList.add("active");
 
             setTimeout(() => {
                 loadingOverlay.classList.remove("active");
-                alert("profile saved successfully!");
+                alert("Profile saved successfully!");
+                originalAvatarSrc = avatar.src;
+                originName = nameInput.value;
+                originEmail = emailInput.value;
                 editProfileBtn.click();
             }, 2000);
         });
@@ -222,6 +233,7 @@
                 const reader = new FileReader();
                 reader.onload = () => {
                     avatar.src = reader.result;
+                    tempAvatarSrc = reader.result;
                 };
                 reader.readAsDataURL(file);
             }
