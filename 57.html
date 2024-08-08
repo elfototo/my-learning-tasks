@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');  
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            gap: 5%;
+            margin-top: 50px;
+        }
+        .profile-card {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-header {
+            background-color: #007bff;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .profile-header .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid #fff;
+        }
+
+        .profile-details {
+            padding: 20px;
+            background-color: #fff;
+            text-align: left;
+        }
+
+        .profile-footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .profile-footer a {
+            color: #007bff;
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .profile-footer a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <img src="img/user.jpg" alt="User Avatar" class="avatar">
+            <h3>John Doe</h3>
+            <p>@johndoe</p>
+        </div>
+        <div class="profile-details">
+            <p><strong>Email:</strong> johndoe@example.com</p>
+            <p><strong>Location:</strong> New York, USA</p>
+            <p><strong>Bio:</strong> Web Developer with 5+ years of experience in front-end and back-end development.
+            </p>
+        </div>
+        <div class="profile-footer">
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <img src="img/user_2.jpg" alt="User Avatar" class="avatar">
+            <h3>Elizabeth Davydova</h3>
+            <p>@elizabeth</p>
+        </div>
+        <div class="profile-details">
+            <p><strong>Email:</strong> elizabeth@example.com</p>
+            <p><strong>Location:</strong> New York, USA</p>
+            <p><strong>Bio:</strong> Web Developer with 5+ years of experience in front-end and back-end development.
+            </p>
+        </div>
+        <div class="profile-footer">
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userData = {
+                avatar: 'img/user.jpg',
+                name: 'John Doe',
+                username: '@johndoe',
+                email: 'johndoe@example.com',
+                location: 'New York, USA',
+                bio: 'Web Developer with 5+ years of experience in front-end and back-end development.',
+                social: {
+                    twitter: 'https://twitter.com',
+                    linkedin: 'https://linkedin.com',
+                    github: 'https://github.com'
+                }
+            };
+
+            document.querySelector('.profile-header .avatar').src = userData.avatar;
+            document.querySelector('.profile-header h3').textContent = userData.name;
+            document.querySelector('.profile-header p').textContent = userData.username;
+            document.querySelector('.profile-details').innerHTML = `
+    <p><strong>Email:</strong> ${userData.email}</p>
+    <p><strong>Location:</strong> ${userData.location}</p>
+    <p><strong>Bio:</strong> ${userData.bio}</p>
+  `;
+            const socialLinks = document.querySelectorAll('.profile-footer a');
+            socialLinks[0].href = userData.social.twitter;
+            socialLinks[1].href = userData.social.linkedin;
+            socialLinks[2].href = userData.social.github;
+        });
+
+    </script>
+
+</body>
+
+</html>
