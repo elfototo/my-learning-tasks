@@ -29,7 +29,7 @@ The purpose of this repository is to:
 3. Store various challenges and solutions that I can come back to and improve.
 4. Keep track of progress in different programming languages and technologies.
 
-## Key Points 
+## 🔑 Key Points 
 1. The repository is described as a personal collection of code snippets and learning tasks, rather than a full-fledged project.
 2. The technologies and areas covered in the repository are listed, such as JavaScript, HTML/CSS.
 3. The folder structure includes examples of tasks and code snippets.
